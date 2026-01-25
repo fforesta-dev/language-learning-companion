@@ -275,13 +275,14 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    height: var(--bottomnav-h);
+    min-height: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0));
     background: var(--primary);
     display: none;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-around;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     z-index: 1000;
+    padding-top: calc((var(--bottomnav-h) - 1.5em) / 2);
     padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
@@ -330,11 +331,7 @@ body {
     }
 
     .main {
-        padding-bottom: calc(var(--bottomnav-h) + 18px);
-    }
-
-    body {
-        padding-bottom: env(safe-area-inset-bottom, 0);
+        padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0) + 18px);
     }
 
     .bottomnav {
