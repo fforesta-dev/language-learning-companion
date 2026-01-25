@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Francesco Foresta" />
+    <meta name="description" content="Short daily language practice: vocabulary, translation, quizzes, and progress." />
+    <title>Language Learning Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Desktop header -->
+    <header class="topbar" role="banner">
+        <div class="topbar__brand">
+            <span class="brand__name">Language Learning Companion</span>
+        </div>
+
+        <form class="topbar__search" id="searchForm" role="search" aria-label="Dictionary search">
+            <label class="sr-only" for="searchInput">Search word</label>
+            <input id="searchInput" name="q" type="search" placeholder="Search..." autocomplete="off" />
+            <button class="btn btn--primary" type="submit">Search</button>
+        </form>
+
+        <div class="topbar__langs" aria-label="Translation languages">
+            <label class="sr-only" for="fromLang">From language</label>
+            <span class="topbar__label">From:</span>
+            <select id="fromLang" class="select">
+                <option value="en" selected>EN</option>
+                <option value="it">IT</option>
+                <option value="fr">FR</option>
+                <option value="es">ES</option>
+                <option value="de">DE</option>
+            </select>
+
+            <label class="sr-only" for="toLang">To language</label>
+            <span class="topbar__label">To:</span>
+            <select id="toLang" class="select">
+                <option value="it" selected>IT</option>
+                <option value="en">EN</option>
+                <option value="fr">FR</option>
+                <option value="es">ES</option>
+                <option value="de">DE</option>
+            </select>
+
+            <button class="btn btn--secondary" id="goTranslateBtn" type="button">
+                Translate
+            </button>
+        </div>
+    </header>
+
+    <div class="app">
+        <!-- Desktop sidebar nav -->
+        <nav class="sidebar" aria-label="Primary navigation">
+            <a class="navlink" href="#/daily" data-route="daily">Daily Word</a>
+            <a class="navlink" href="#/translate" data-route="translate">Translate</a>
+            <a class="navlink" href="#/favorites" data-route="favorites">Favorites</a>
+            <a class="navlink" href="#/quiz" data-route="quiz">Quiz</a>
+            <a class="navlink" href="#/progress" data-route="progress">Progress</a>
+        </nav>
+
+        <main id="main" class="main" tabindex="-1">
+            <div id="view"></div>
+        </main>
+    </div>
+
+    <!-- Mobile bottom nav -->
+    <nav class="bottomnav" aria-label="Bottom navigation">
+        <a class="bottomlink" href="#/daily" data-route="daily">Daily</a>
+        <a class="bottomlink" href="#/translate" data-route="translate">Translate</a>
+        <a class="bottomlink" href="#/quiz" data-route="quiz">Quiz</a>
+        <a class="bottomlink" href="#/favorites" data-route="favorites">Favorites</a>
+    </nav>
+
+    <script type="module" src="scripts/main.js"></script>
+</body>
+
+</html>
