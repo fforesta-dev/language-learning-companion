@@ -29,6 +29,10 @@ body {
     min-height: 100%;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     font-family: var(--font-body);
@@ -284,6 +288,17 @@ body {
     z-index: 1000;
     padding-top: calc((var(--bottomnav-h) - 1.5em) / 2);
     padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.bottomnav::after {
+    content: "";
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: var(--primary);
+    z-index: -1;
 }
 
 .bottomlink {
