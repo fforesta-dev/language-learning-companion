@@ -40,6 +40,18 @@ body {
     background: var(--bg);
 }
 
+body::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: env(safe-area-inset-bottom, 0);
+    background: var(--primary);
+    pointer-events: none;
+    z-index: 999;
+}
+
 .skip-link {
     position: absolute;
     left: -999px;
@@ -279,26 +291,15 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    min-height: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0));
+    height: var(--bottomnav-h);
     background: var(--primary);
     display: none;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-around;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     z-index: 1000;
-    padding-top: calc((var(--bottomnav-h) - 1.5em) / 2);
     padding-bottom: env(safe-area-inset-bottom, 0);
-}
-
-.bottomnav::after {
-    content: "";
-    position: absolute;
-    bottom: -100px;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background: var(--primary);
-    z-index: -1;
+    box-sizing: content-box;
 }
 
 .bottomlink {
