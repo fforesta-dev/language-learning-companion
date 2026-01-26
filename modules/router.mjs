@@ -45,9 +45,15 @@ async function renderRoute() {
             main.focus();
         }
     }
+
+    // Ensure we stay at the top after render (mobile browsers sometimes restore scroll).
+    requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }));
 }
 
 export function initRouter() {
+    if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+    }
     window.addEventListener("hashchange", renderRoute);
     renderRoute();
 }
