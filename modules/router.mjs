@@ -38,7 +38,13 @@ async function renderRoute() {
     await handler(view, params);
 
     const main = document.querySelector("#main");
-    main.focus();
+    if (main) {
+        try {
+            main.focus({ preventScroll: true });
+        } catch (_) {
+            main.focus();
+        }
+    }
 }
 
 export function initRouter() {
