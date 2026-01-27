@@ -21,6 +21,14 @@
     <!-- Desktop header -->
     <header class="topbar" role="banner">
         <div class="topbar__brand">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </span>
+            </button>
             <span class="brand__name">Language Learning Companion</span>
         </div>
 
@@ -57,9 +65,15 @@
         </div>
     </header>
 
+    <!-- Sidebar overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="app">
         <!-- Desktop sidebar nav -->
-        <nav class="sidebar" aria-label="Primary navigation">
+        <nav class="sidebar" id="sidebar" aria-label="Primary navigation">
+            <button class="sidebar__close" id="sidebarClose" aria-label="Close navigation menu">
+                &times;
+            </button>
             <a class="navlink" href="#/daily" data-route="daily">Daily Word</a>
             <a class="navlink" href="#/translate" data-route="translate">Translate</a>
             <a class="navlink" href="#/favorites" data-route="favorites">Favorites</a>
@@ -72,15 +86,13 @@
         </main>
     </div>
 
-    <!-- Mobile bottom nav -->
-    <nav class="bottomnav" aria-label="Bottom navigation">
-        <a class="bottomlink" href="#/daily" data-route="daily">Daily</a>
-        <a class="bottomlink" href="#/translate" data-route="translate">Translate</a>
-        <a class="bottomlink" href="#/quiz" data-route="quiz">Quiz</a>
-        <a class="bottomlink" href="#/favorites" data-route="favorites">Favorites</a>
-    </nav>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Language Learning Companion. All rights reserved.</p>
+    </footer>
 
     <script type="module" src="scripts/main.js"></script>
+    <script src="scripts/sidebar.js"></script>
 </body>
 
 </html>
