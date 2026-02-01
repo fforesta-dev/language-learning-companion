@@ -41,7 +41,7 @@ async function renderRoute() {
     if (main) {
         try {
             main.focus({ preventScroll: true });
-        } catch (_) {
+        } catch {
             main.focus();
         }
     }
