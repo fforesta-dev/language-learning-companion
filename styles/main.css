@@ -105,14 +105,30 @@ body {
     min-width: 0;
 }
 
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.brand__logo {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
+    border-radius: 8px;
+}
+
 .brand__name {
     font-size: 20px;
     font-family: var(--font-heading);
     font-weight: 700;
     letter-spacing: -0.5px;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+}
+
+.brand__name--short {
+    display: none;
 }
 
 /* Hamburger Menu Button */
@@ -637,6 +653,11 @@ body {
         grid-row: 3;
     }
 
+    .brand__logo {
+        width: 30px;
+        height: 30px;
+    }
+
     .app {
         grid-template-columns: 1fr;
     }
@@ -690,6 +711,14 @@ body {
 
     .brand__name {
         font-size: 16px;
+    }
+
+    .brand__name--full {
+        display: none;
+    }
+
+    .brand__name--short {
+        display: inline;
     }
 
     .navlink {
