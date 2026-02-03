@@ -138,16 +138,14 @@ function renderQuestion(viewRoot) {
         </div>
 
         <div class="quiz-nav" style="margin-top: 24px; display: flex; gap: 12px;">
-          ${
-            currentQuestionIndex > 0
-              ? `<button class="btn btn--secondary" id="prevBtn" type="button">← Previous</button>`
-              : ""
-          }
-          ${
-            currentQuestionIndex < currentQuiz.length - 1
-              ? `<button class="btn btn--primary" id="nextBtn" type="button" ${!selectedAnswer ? "disabled" : ""}>Next →</button>`
-              : `<button class="btn btn--primary" id="submitBtn" type="button" ${!selectedAnswer ? "disabled" : ""}>Submit Quiz</button>`
-          }
+          ${currentQuestionIndex > 0
+      ? `<button class="btn btn--secondary" id="prevBtn" type="button">← Previous</button>`
+      : ""
+    }
+          ${currentQuestionIndex < currentQuiz.length - 1
+      ? `<button class="btn btn--primary" id="nextBtn" type="button" ${!selectedAnswer ? "disabled" : ""}>Next →</button>`
+      : `<button class="btn btn--primary" id="submitBtn" type="button" ${!selectedAnswer ? "disabled" : ""}>Submit Quiz</button>`
+    }
         </div>
       </article>
     </section>
