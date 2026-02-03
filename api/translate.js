@@ -54,15 +54,22 @@ export default async function handler(req, res) {
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
+            let errorData = {};
+            try {
+                errorData = await response.json();
+            } catch {
+                errorData = { message: await response.text() };
+            }
+            console.error(`DeepL API error (${response.status}):`, errorData);
             return res.status(response.status).json({
-                error: errorData.message || `DeepL API error (${response.status})`,
+                error: `DeepL API error (${response.status}): ${errorData.message || JSON.stringify(errorData)}`,
             });
         }
 
         const data = await response.json();
         res.status(200).json(data);
     } catch (error) {
+        console.error('Translation error:', error);
         res.status(500).json({ error: error.message });
     }
 }
