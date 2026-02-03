@@ -33,9 +33,21 @@ export function normalizeDictionaryResult(apiJson) {
         audioUrl = `https://media.merriam-webster.com/audio/prons/en/us/mp3/${subdir}/${audioData}.mp3`;
     }
 
-    // Get first definition
-    const firstDef = entry.shortdef?.[0] || "";
+    // Get ALL definitions
+    const allDefinitions = entry.shortdef || [];
     const partOfSpeech = entry.fl || "";
+
+    // Get etymology (word origin)
+    const etymology = entry.et?.[0]?.[1] || "";
+    
+    // Get date first used
+    const dateFirstUsed = entry.date || "";
+    
+    // Get offensive/usage labels
+    const labels = entry.lbs || [];
+    
+    // Get variant spellings
+    const variants = entry.vrs?.map(v => v.va || v.vl) || [];
 
     // Get examples from definition text
     const examples = [];
@@ -57,13 +69,39 @@ export function normalizeDictionaryResult(apiJson) {
         }
     }
 
+    // Get usage notes and verbal illustrations
+    const usageNotes = [];
+    if (entry.def?.[0]?.sseq) {
+        for (const sense of entry.def[0].sseq) {
+            for (const item of sense) {
+                if (item[0] === 'sense' && item[1]?.dt) {
+                    for (const dtItem of item[1].dt) {
+                        if (dtItem[0] === 'un' && Array.isArray(dtItem[1])) {
+                            for (const un of dtItem[1]) {
+                                if (un.text) {
+                                    usageNotes.push(un.text.replace(/{.*?}/g, ''));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     return {
         word,
         language: "en",
         phonetic,
         partOfSpeech,
-        definition: firstDef,
-        examples: examples.slice(0, 3),
+        definition: allDefinitions[0] || "",
+        allDefinitions,
+        etymology: etymology.replace(/{.*?}/g, '').trim(),
+        dateFirstUsed,
+        labels,
+        variants,
+        examples: examples.slice(0, 8), // Show more examples
+        usageNotes,
         audioUrl,
         fetchedAt: new Date().toISOString(),
     };

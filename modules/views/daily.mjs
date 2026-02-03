@@ -54,6 +54,12 @@ function renderDashboard(root, data, thesaurus) {
       ? `<ul class="list">${examples.map((e) => `<li>${escapeHtml(e)}</li>`).join("")}</ul>`
       : `<p class="meta">No examples available for this word.</p>`;
 
+  // All definitions
+  const allDefs = Array.isArray(data.allDefinitions) ? data.allDefinitions : [data.definition];
+  const definitionsHtml = allDefs.length > 0
+    ? `<ol class="definitions-list">${allDefs.map((def, i) => `<li><strong>${i + 1}.</strong> ${escapeHtml(def)}</li>`).join("")}</ol>`
+    : `<p class="meta">—</p>`;
+
   const synonyms = Array.isArray(thesaurus?.synonyms) ? thesaurus.synonyms : [];
   const antonyms = Array.isArray(thesaurus?.antonyms) ? thesaurus.antonyms : [];
 
@@ -71,41 +77,60 @@ function renderDashboard(root, data, thesaurus) {
   const favorites = getFavorites();
   const quizStats = getQuizStats();
 
+  // Usage notes
+  const usageNotesHtml = Array.isArray(data.usageNotes) && data.usageNotes.length > 0
+    ? `<div class="usage-notes"><h3>Usage Notes</h3><ul class="list">${data.usageNotes.map(note => `<li>${escapeHtml(note)}</li>`).join('')}</ul></div>`
+    : '';
+
+  // Etymology section
+  const etymologyHtml = data.etymology
+    ? `<div class="etymology-section">
+        <h3>Word Origin</h3>
+        <p class="meta">${escapeHtml(data.etymology)}</p>
+        ${data.dateFirstUsed ? `<p class="meta meta--sm">First known use: <strong>${escapeHtml(data.dateFirstUsed)}</strong></p>` : ''}
+      </div>`
+    : '';
+
+  // Variants
+  const variantsHtml = Array.isArray(data.variants) && data.variants.length > 0
+    ? `<p class="meta meta--sm"><strong>Also spelled:</strong> ${data.variants.map(v => escapeHtml(v)).join(', ')}</p>`
+    : '';
+
   root.innerHTML = `
     <section class="grid" aria-label="Dashboard">
       <article class="card card--daily" aria-label="Daily word">
         <h2>Daily Word</h2>
 
-        <div class="meta meta--lg">
-          <div>
-            <strong>Word:</strong> ${escapeHtml(data.word)}
+        <div class="word-header">
+          <div class="word-title">
+            <h3 class="word-display">${escapeHtml(data.word)}</h3>
             ${data.audioUrl
-      ? `
-                  <button
-                    class="btn btn--secondary btn--icon"
-                    id="playAudio"
-                    type="button"
-                    aria-label="Play pronunciation"
-                    aria-pressed="false"
-                  >
+      ? `<button class="btn btn--secondary btn--icon" id="playAudio" type="button" aria-label="Play pronunciation" title="Hear pronunciation">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M8 5v14l11-7z"/>
                     </svg>
-                  </button>
-                `
+                  </button>`
       : ""
     }
           </div>
-
-          <div><strong>Phonetic:</strong> ${escapeHtml(data.phonetic || "—")}</div>
-          <div><strong>Part of speech:</strong> ${escapeHtml(data.partOfSpeech || "—")}</div>
-          <div><strong>Definition:</strong> ${escapeHtml(data.definition || "—")}</div>
+          <div class="word-meta">
+            <span class="phonetic">${escapeHtml(data.phonetic || "—")}</span>
+            <span class="part-of-speech">${escapeHtml(data.partOfSpeech || "—")}</span>
+          </div>
+          ${variantsHtml}
         </div>
+
+        <div class="definitions-section">
+          <h3>Definitions</h3>
+          ${definitionsHtml}
+        </div>
+
+        ${etymologyHtml}
 
         <div class="daily-actions">
           <button class="btn btn--primary pill" id="saveBtn" type="button">
             <span class="star" aria-hidden="true" id="starIcon">★</span>
-            Save
+            Save to Favorites
           </button>
           <p class="meta save-hint" id="saveHint"></p>
         </div>
@@ -119,6 +144,7 @@ function renderDashboard(root, data, thesaurus) {
       <article class="card card--examples" aria-label="Example sentences">
         <h2>Example Sentences</h2>
         ${examplesHtml}
+        ${usageNotesHtml}
       </article>
 
       <article class="card card--thesaurus" aria-label="Thesaurus">
