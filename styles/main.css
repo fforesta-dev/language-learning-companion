@@ -247,16 +247,23 @@ body {
     border-radius: var(--radius);
     border: 2px solid rgba(255, 255, 255, 0.15);
     color: #fff;
-    padding: 0 14px 0 14px;
+    padding: 0 14px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
     appearance: none;
     min-width: 80px;
-    background: rgba(255, 255, 255, 0.1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 10px center;
-    background-size: auto, 16px 16px;
+    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+}
+
+.topbar__langs .select {
+    background-color: rgba(255, 255, 255, 0.1);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 20px 20px;
     padding-right: 36px;
 }
 
