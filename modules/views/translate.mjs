@@ -1,4 +1,4 @@
-import { translateText } from "../libretranslate.mjs";
+import { translateText } from "../deepl.mjs";
 import { getLangs, setLangs } from "../state.mjs";
 
 export async function renderTranslate(viewRoot) {

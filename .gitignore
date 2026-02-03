@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# API Keys - DO NOT COMMIT
+modules/config.mjs
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
