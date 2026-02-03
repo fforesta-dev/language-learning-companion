@@ -48,13 +48,13 @@ export function normalizeDictionaryResult(apiJson) {
 
     // Get etymology (word origin)
     const rawEtymology = entry.et?.[0]?.[1] || "";
-    
+
     // Get date first used
     const rawDate = entry.date || "";
-    
+
     // Get offensive/usage labels
     const labels = entry.lbs || [];
-    
+
     // Get variant spellings
     const variants = entry.vrs?.map(v => cleanText(v.va || v.vl)).filter(Boolean) || [];
 
