@@ -1,5 +1,6 @@
 import { getWordData } from "../dictionary.mjs";
 import { getThesaurusData } from "../thesaurus.mjs";
+import { addFavorite, isFavorite } from "../favorites.mjs";
 
 const LS_KEY = "llc-daily";
 
@@ -98,10 +99,10 @@ function renderDashboard(root, data, thesaurus) {
 
         <div class="daily-actions">
           <span class="pill">
-            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true" id="starIcon">★</span>
             <button class="btn btn--primary" id="saveBtn" type="button">Save</button>
           </span>
-          <p class="meta save-hint" id="saveHint">(Favorites feature starts Week 6.)</p>
+          <p class="meta save-hint" id="saveHint"></p>
         </div>
       </article>
 
@@ -140,11 +141,46 @@ function renderDashboard(root, data, thesaurus) {
     </section>
   `;
 
-  // Save placeholder
+  // Save button - add favorite
   root.querySelector("#saveBtn")?.addEventListener("click", () => {
-    const hint = root.querySelector("#saveHint");
-    if (hint) hint.textContent = "Saved (placeholder). Favorites module will be implemented in Week 6.";
+    const saveBtn = root.querySelector("#saveBtn");
+    const saveHint = root.querySelector("#saveHint");
+    const starIcon = root.querySelector("#starIcon");
+
+    const wordData = {
+      word: data.word,
+      definition: data.definition,
+      phonetic: data.phonetic,
+      partOfSpeech: data.partOfSpeech,
+    };
+
+    const added = addFavorite(wordData);
+
+    if (added) {
+      saveBtn.textContent = "Saved!";
+      saveHint.textContent = "Added to your favorites.";
+      starIcon.style.color = "#f39c12";
+      saveBtn.disabled = true;
+      setTimeout(() => {
+        saveBtn.textContent = "Save";
+        saveBtn.disabled = false;
+      }, 2000);
+    } else {
+      saveHint.textContent = "Already in your favorites!";
+      starIcon.style.color = "#f39c12";
+    }
   });
+
+  // Update star icon if already favorited
+  if (isFavorite(data.word)) {
+    const starIcon = root.querySelector("#starIcon");
+    const saveBtn = root.querySelector("#saveBtn");
+    if (starIcon) starIcon.style.color = "#f39c12";
+    if (saveBtn) {
+      saveBtn.textContent = "Saved";
+      saveBtn.disabled = true;
+    }
+  }
 
   // Pronunciation audio (Step 2c – disable while playing)
   const playBtn = root.querySelector("#playAudio");
