@@ -172,10 +172,7 @@ function renderDashboard(root, data, thesaurus) {
         recentContainer.innerHTML = `<ul class="list">${listHtml}</ul>`;
       }
 
-      setTimeout(() => {
-        saveBtn.innerHTML = `<span class="star" aria-hidden="true">★</span> Save`;
-        saveBtn.disabled = false;
-      }, 2000);
+
     } else {
       saveHint.textContent = "Already in your favorites!";
       if (starIcon) starIcon.style.color = "#f39c12";
