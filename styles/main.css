@@ -246,7 +246,7 @@ body {
     height: 42px;
     border-radius: var(--radius);
     border: 2px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     color: #fff;
     padding: 0 14px;
