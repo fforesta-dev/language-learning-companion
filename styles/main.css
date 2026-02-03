@@ -1086,6 +1086,10 @@ body {
     display: inline;
 }
 
+.quiz-answer-btn.selected .answer-text {
+    color: white;
+}
+
 .quiz-answers {
     margin: 20px 0;
 }
