@@ -34,7 +34,13 @@ async function renderRoute() {
     const handler = routes[path] || routes.daily;
     setActiveNav(path in routes ? path : "daily");
 
+    // Add fade-out class and wait for animation
+    view.classList.add("fade-out");
+    await new Promise(resolve => setTimeout(resolve, 200));
+
     view.innerHTML = "";
+    view.classList.remove("fade-out");
+    
     await handler(view, params);
 
     const main = document.querySelector("#main");
