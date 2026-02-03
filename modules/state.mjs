@@ -23,5 +23,10 @@ export function getLangs() {
 
 export function setLangs({ from, to }) {
     const s = readState();
-    writeState({ ...s, from, to });
+    const next = { ...s, from, to };
+    writeState(next);
+
+    window.dispatchEvent(
+        new CustomEvent("llc:langs", { detail: { from: next.from, to: next.to } })
+    );
 }
