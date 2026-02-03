@@ -152,6 +152,7 @@ function renderDashboard(root, data, thesaurus) {
     const saveHint = root.querySelector("#saveHint");
     const starIcon = root.querySelector("#starIcon");
     const recentContainer = root.querySelector("#recentFavoritesContainer");
+    const progressCard = root.querySelector(".card--progress");
 
     const wordData = {
       word: data.word,
@@ -181,7 +182,23 @@ function renderDashboard(root, data, thesaurus) {
         recentContainer.innerHTML = `<ul class="list">${listHtml}</ul>`;
       }
 
-
+      // Update Progress card immediately
+      if (progressCard) {
+        const favorites = getFavorites();
+        const quizStats = getQuizStats();
+        progressCard.innerHTML = `
+          <h2>Progress</h2>
+          <p class="meta meta--xl">
+            Words saved: <strong>${favorites.length}</strong><br />
+            Quizzes completed: <strong>${quizStats.totalQuizzes}</strong>
+          </p>
+          ${
+            quizStats.totalQuizzes > 0
+              ? `<p class="meta">Average score: <strong>${quizStats.averageScore}%</strong></p>`
+              : `<p class="meta">Complete quizzes to track your progress!</p>`
+          }
+        `;
+      }
     } else {
       saveHint.textContent = "Already in your favorites!";
       if (starIcon) starIcon.style.color = "#f39c12";
