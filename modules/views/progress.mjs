@@ -21,7 +21,7 @@ export async function renderProgress(viewRoot) {
       const dateStr = date.toLocaleDateString();
       const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const scoreColor = quiz.percentage >= 80 ? "#27ae60" : quiz.percentage >= 60 ? "#f39c12" : "#e74c3c";
-      
+
       return `
         <div class="progress-quiz-item">
           <div>
@@ -67,9 +67,8 @@ export async function renderProgress(viewRoot) {
         </div>
       </article>
 
-      ${
-        quizHistory.length > 0
-          ? `
+      ${quizHistory.length > 0
+      ? `
             <article class="card">
               <h3>Recent Quiz History</h3>
               <div class="progress-quiz-list">
@@ -77,13 +76,13 @@ export async function renderProgress(viewRoot) {
               </div>
             </article>
           `
-          : `
+      : `
             <article class="card">
               <h3>Recent Quiz History</h3>
               <p class="meta">No quizzes completed yet. Start a quiz to track your progress!</p>
             </article>
           `
-      }
+    }
     </section>
   `;
 }
