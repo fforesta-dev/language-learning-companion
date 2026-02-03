@@ -7,6 +7,15 @@ function safeArray(v) {
     return Array.isArray(v) ? v : [];
 }
 
+// Clean Merriam-Webster markup codes
+function cleanText(text) {
+    if (!text) return "";
+    return String(text)
+        .replace(/{[^}]*}/g, '') // Remove all {code} markup
+        .replace(/\s+/g, ' ')     // Normalize whitespace
+        .trim();
+}
+
 export function normalizeDictionaryResult(apiJson) {
     // apiJson is an array from Merriam-Webster
     const entry = safeArray(apiJson)[0] || {};
@@ -38,16 +47,16 @@ export function normalizeDictionaryResult(apiJson) {
     const partOfSpeech = entry.fl || "";
 
     // Get etymology (word origin)
-    const etymology = entry.et?.[0]?.[1] || "";
+    const rawEtymology = entry.et?.[0]?.[1] || "";
     
     // Get date first used
-    const dateFirstUsed = entry.date || "";
+    const rawDate = entry.date || "";
     
     // Get offensive/usage labels
     const labels = entry.lbs || [];
     
     // Get variant spellings
-    const variants = entry.vrs?.map(v => v.va || v.vl) || [];
+    const variants = entry.vrs?.map(v => cleanText(v.va || v.vl)).filter(Boolean) || [];
 
     // Get examples from definition text
     const examples = [];
@@ -59,7 +68,7 @@ export function normalizeDictionaryResult(apiJson) {
                         if (dtItem[0] === 'vis') {
                             for (const vis of dtItem[1]) {
                                 if (vis.t) {
-                                    examples.push(vis.t.replace(/{.*?}/g, ''));
+                                    examples.push(cleanText(vis.t));
                                 }
                             }
                         }
@@ -79,7 +88,7 @@ export function normalizeDictionaryResult(apiJson) {
                         if (dtItem[0] === 'un' && Array.isArray(dtItem[1])) {
                             for (const un of dtItem[1]) {
                                 if (un.text) {
-                                    usageNotes.push(un.text.replace(/{.*?}/g, ''));
+                                    usageNotes.push(cleanText(un.text));
                                 }
                             }
                         }
@@ -96,8 +105,8 @@ export function normalizeDictionaryResult(apiJson) {
         partOfSpeech,
         definition: allDefinitions[0] || "",
         allDefinitions,
-        etymology: etymology.replace(/{.*?}/g, '').trim(),
-        dateFirstUsed,
+        etymology: cleanText(rawEtymology),
+        dateFirstUsed: cleanText(rawDate),
         labels,
         variants,
         examples: examples.slice(0, 8), // Show more examples
