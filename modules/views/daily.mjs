@@ -1,4 +1,5 @@
 import { getWordData } from "../dictionary.mjs";
+import { getThesaurusData } from "../thesaurus.mjs";
 
 const LS_KEY = "llc-daily";
 
@@ -44,12 +45,25 @@ function renderError(root, message) {
   `;
 }
 
-function renderDashboard(root, data) {
+function renderDashboard(root, data, thesaurus) {
   const examples = Array.isArray(data.examples) ? data.examples : [];
   const examplesHtml =
     examples.length > 0
       ? `<ul class="list">${examples.map((e) => `<li>${escapeHtml(e)}</li>`).join("")}</ul>`
       : `<p class="meta">No examples available for this word.</p>`;
+
+  const synonyms = Array.isArray(thesaurus?.synonyms) ? thesaurus.synonyms : [];
+  const antonyms = Array.isArray(thesaurus?.antonyms) ? thesaurus.antonyms : [];
+
+  const synonymsHtml =
+    synonyms.length > 0
+      ? `<ul class="list">${synonyms.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`
+      : `<p class="meta">No synonyms available.</p>`;
+
+  const antonymsHtml =
+    antonyms.length > 0
+      ? `<ul class="list">${antonyms.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`
+      : `<p class="meta">No antonyms available.</p>`;
 
   root.innerHTML = `
     <section class="grid" aria-label="Dashboard">
@@ -103,6 +117,16 @@ function renderDashboard(root, data) {
       <article class="card" aria-label="Example sentences">
         <h2>Example Sentences</h2>
         ${examplesHtml}
+      </article>
+
+      <article class="card" aria-label="Thesaurus">
+        <h2>Thesaurus</h2>
+        <div class="meta meta--lg">
+          <div><strong>Synonyms:</strong></div>
+          ${synonymsHtml}
+          <div style="margin-top: 12px;"><strong>Antonyms:</strong></div>
+          ${antonymsHtml}
+        </div>
       </article>
 
       <article class="card" aria-label="Weekly progress">
@@ -178,14 +202,25 @@ export async function renderDaily(viewRoot, params) {
 
   const cached = readDailyCache();
   if (cached?.word === wordToLoad && cached?.data) {
-    renderDashboard(viewRoot, cached.data);
+    renderDashboard(viewRoot, cached.data, cached.thesaurus);
     return;
   }
 
   try {
-    const data = await getWordData(wordToLoad);
-    writeDailyCache({ word: wordToLoad, data });
-    renderDashboard(viewRoot, data);
+    const [dictResult, thesResult] = await Promise.allSettled([
+      getWordData(wordToLoad),
+      getThesaurusData(wordToLoad),
+    ]);
+
+    if (dictResult.status !== "fulfilled") {
+      throw dictResult.reason || new Error("Dictionary request failed.");
+    }
+
+    const data = dictResult.value;
+    const thesaurus = thesResult.status === "fulfilled" ? thesResult.value : null;
+
+    writeDailyCache({ word: wordToLoad, data, thesaurus });
+    renderDashboard(viewRoot, data, thesaurus);
   } catch (err) {
     renderError(viewRoot, err?.message || "Unknown error.");
   }
