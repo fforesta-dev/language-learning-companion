@@ -35,22 +35,23 @@ export default async function handler(req, res) {
     }
 
     try {
-        const params = new URLSearchParams({
-            auth_key: API_KEY,
+        let body = {
             text,
             target_lang: target_lang.toUpperCase(),
-        });
+        };
 
+        // Add source_lang if provided and not auto
         if (source_lang && source_lang !== 'auto') {
-            params.append('source_lang', source_lang.toUpperCase());
+            body.source_lang = source_lang.toUpperCase();
         }
 
         const response = await fetch('https://api-free.deepl.com/v2/translate', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': `DeepL-Auth-Key ${API_KEY}`,
+                'Content-Type': 'application/json',
             },
-            body: params.toString(),
+            body: JSON.stringify(body),
         });
 
         if (!response.ok) {
