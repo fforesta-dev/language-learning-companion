@@ -137,11 +137,10 @@ function renderDashboard(root, data, thesaurus) {
           Words saved: <strong>${favorites.length}</strong><br />
           Quizzes completed: <strong>${quizStats.totalQuizzes}</strong>
         </p>
-        ${
-          quizStats.totalQuizzes > 0
-            ? `<p class="meta">Average score: <strong>${quizStats.averageScore}%</strong></p>`
-            : `<p class="meta">Complete quizzes to track your progress!</p>`
-        }
+        ${quizStats.totalQuizzes > 0
+      ? `<p class="meta">Average score: <strong>${quizStats.averageScore}%</strong></p>`
+      : `<p class="meta">Complete quizzes to track your progress!</p>`
+    }
       </article>
     </section>
   `;
@@ -192,10 +191,9 @@ function renderDashboard(root, data, thesaurus) {
             Words saved: <strong>${favorites.length}</strong><br />
             Quizzes completed: <strong>${quizStats.totalQuizzes}</strong>
           </p>
-          ${
-            quizStats.totalQuizzes > 0
-              ? `<p class="meta">Average score: <strong>${quizStats.averageScore}%</strong></p>`
-              : `<p class="meta">Complete quizzes to track your progress!</p>`
+          ${quizStats.totalQuizzes > 0
+            ? `<p class="meta">Average score: <strong>${quizStats.averageScore}%</strong></p>`
+            : `<p class="meta">Complete quizzes to track your progress!</p>`
           }
         `;
       }
