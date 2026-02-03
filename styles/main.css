@@ -401,6 +401,36 @@ body {
     grid-auto-flow: dense;
 }
 
+.grid .card--daily {
+    grid-area: daily;
+}
+
+.grid .card--examples {
+    grid-area: examples;
+}
+
+.grid .card--favorites {
+    grid-area: favorites;
+}
+
+.grid .card--thesaurus {
+    grid-area: thesaurus;
+}
+
+.grid .card--progress {
+    grid-area: progress;
+}
+
+@media (min-width: 1100px) {
+    .grid {
+        grid-template-columns: 2fr 1fr;
+        grid-template-areas:
+            "daily favorites"
+            "examples thesaurus"
+            "examples progress";
+    }
+}
+
 .card {
     background: var(--card);
     border: 1px solid var(--border);

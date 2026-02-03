@@ -67,7 +67,7 @@ function renderDashboard(root, data, thesaurus) {
 
   root.innerHTML = `
     <section class="grid" aria-label="Dashboard">
-      <article class="card" aria-label="Daily word">
+      <article class="card card--daily" aria-label="Daily word">
         <h2>Daily Word</h2>
 
         <div class="meta meta--lg">
@@ -105,7 +105,7 @@ function renderDashboard(root, data, thesaurus) {
         </div>
       </article>
 
-      <article class="card" aria-label="Favorites recent">
+      <article class="card card--favorites" aria-label="Favorites recent">
         <h2>Favorites (Recent)</h2>
         <ul class="list">
           <li>word 1</li>
@@ -114,12 +114,12 @@ function renderDashboard(root, data, thesaurus) {
         <p class="meta">This area will be dynamic in Week 6.</p>
       </article>
 
-      <article class="card" aria-label="Example sentences">
+      <article class="card card--examples" aria-label="Example sentences">
         <h2>Example Sentences</h2>
         ${examplesHtml}
       </article>
 
-      <article class="card" aria-label="Thesaurus">
+      <article class="card card--thesaurus" aria-label="Thesaurus">
         <h2>Thesaurus</h2>
         <div class="meta meta--lg">
           <div><strong>Synonyms:</strong></div>
@@ -129,7 +129,7 @@ function renderDashboard(root, data, thesaurus) {
         </div>
       </article>
 
-      <article class="card" aria-label="Weekly progress">
+      <article class="card card--progress" aria-label="Weekly progress">
         <h2>Weekly Progress</h2>
         <p class="meta meta--xl">
           Words reviewed: —<br />
