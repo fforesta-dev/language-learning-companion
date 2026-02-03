@@ -188,7 +188,7 @@ function submitQuiz(viewRoot) {
 }
 
 function renderResults(viewRoot, result) {
-  const scoreColor = result.percentage >= 80 ? "#27ae60" : result.percentage >= 60 ? "#f39c12" : "#e74c3c";
+  const scoreColor = result.percentage >= 80 ? "#1e8449" : result.percentage >= 60 ? "#f39c12" : "#c0392b";
 
   const detailsHtml = result.details
     .map(

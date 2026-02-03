@@ -20,7 +20,7 @@ export async function renderProgress(viewRoot) {
       const date = new Date(quiz.completedAt);
       const dateStr = date.toLocaleDateString();
       const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const scoreColor = quiz.percentage >= 80 ? "#27ae60" : quiz.percentage >= 60 ? "#f39c12" : "#e74c3c";
+      const scoreColor = quiz.percentage >= 80 ? "#1e8449" : quiz.percentage >= 60 ? "#f39c12" : "#c0392b";
 
       return `
         <div class="progress-quiz-item">
