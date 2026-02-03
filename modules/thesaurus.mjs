@@ -1,5 +1,3 @@
-import { API_KEYS, API_ENDPOINTS } from './config.mjs';
-
 // Use backend proxy instead of direct API calls
 const BACKEND_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
     ? 'http://localhost:3000/api'
