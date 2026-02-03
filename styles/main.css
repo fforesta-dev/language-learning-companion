@@ -405,6 +405,7 @@ body {
 .navlink {
     display: flex;
     align-items: center;
+    gap: 12px;
     color: #fff;
     text-decoration: none;
     padding: 12px 14px;
@@ -414,6 +415,13 @@ body {
     font-weight: 600;
     font-size: 15px;
     transition: var(--transition);
+}
+
+.navlink svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    flex-shrink: 0;
 }
 
 .navlink:hover {
