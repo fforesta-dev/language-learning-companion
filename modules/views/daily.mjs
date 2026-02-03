@@ -142,6 +142,7 @@ function renderDashboard(root, data, thesaurus) {
     const saveBtn = root.querySelector("#saveBtn");
     const saveHint = root.querySelector("#saveHint");
     const starIcon = root.querySelector("#starIcon");
+    const recentContainer = root.querySelector("#recentFavoritesContainer");
 
     const wordData = {
       word: data.word,
@@ -153,17 +154,31 @@ function renderDashboard(root, data, thesaurus) {
     const added = addFavorite(wordData);
 
     if (added) {
-      saveBtn.textContent = "Saved!";
+      // Update button appearance
+      saveBtn.innerHTML = `<span class="star" aria-hidden="true" style="color: #f39c12;">★</span> Saved`;
       saveHint.textContent = "Added to your favorites.";
-      starIcon.style.color = "#f39c12";
       saveBtn.disabled = true;
+
+      // Update Favorites (Recent) section immediately
+      if (recentContainer) {
+        const favorites = getFavorites();
+        const recent = favorites.slice(-5).reverse();
+        const listHtml = recent
+          .map(
+            (fav) =>
+              `<li><strong>${escapeHtml(fav.word)}</strong><br><span class="meta">${escapeHtml(fav.definition || "—")}</span></li>`
+          )
+          .join("");
+        recentContainer.innerHTML = `<ul class="list">${listHtml}</ul>`;
+      }
+
       setTimeout(() => {
-        saveBtn.textContent = "Save";
+        saveBtn.innerHTML = `<span class="star" aria-hidden="true">★</span> Save`;
         saveBtn.disabled = false;
       }, 2000);
     } else {
       saveHint.textContent = "Already in your favorites!";
-      starIcon.style.color = "#f39c12";
+      if (starIcon) starIcon.style.color = "#f39c12";
     }
   });
 
