@@ -12,6 +12,9 @@
     --muted: #5d6d7e;
     --border: #e2e8f0;
     --focus: #3498db;
+    --success: #1e8449;
+    --warning: #f39c12;
+    --error: #c0392b;
     --radius: 16px;
     --radius-sm: 8px;
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -26,6 +29,26 @@
     --font-body: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
     --font-heading: "Poppins", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
     --transition: all 0.2s ease;
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+    --primary: #1a1f2e;
+    --sidebar: #0f1419;
+    --secondary: #4a8fc7;
+    --secondary-hover: #3a7fb7;
+    --accent: #f39c12;
+    --accent-hover: #e67e22;
+    --bg: #0d1117;
+    --card: #161b22;
+    --text: #e0e6ed;
+    --text-light: #b0b8c1;
+    --muted: #8b949e;
+    --border: #30363d;
+    --focus: #58a6ff;
+    --success: #2ea573;
+    --warning: #f39c12;
+    --error: #f85149;
 }
 
 * {
@@ -51,6 +74,7 @@ body {
     font-size: 15px;
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .skip-link {
@@ -344,6 +368,35 @@ body {
     background: var(--secondary-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn--theme {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 8px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn--theme:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn--theme:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
 }
 
 .app {
@@ -936,7 +989,7 @@ body {
 }
 
 .meta--error {
-    color: #c0392b;
+    color: var(--error);
     font-weight: 600;
 }
 
@@ -1121,7 +1174,7 @@ body {
     font-size: 32px;
     font-weight: 700;
     margin: 0;
-    color: #1e8449;
+    color: var(--success);
 }
 
 .score-text {
@@ -1143,12 +1196,12 @@ body {
 }
 
 .quiz-result-item.correct {
-    border-left-color: #1e8449;
+    border-left-color: var(--success);
     background: #f0fdf4;
 }
 
 .quiz-result-item.incorrect {
-    border-left-color: #e74c3c;
+    border-left-color: var(--error);
     background: #fef2f2;
 }
 
@@ -1172,12 +1225,12 @@ body {
 }
 
 .quiz-result-item.correct .result-badge {
-    background: #1e8449;
+    background: var(--success);
     color: white;
 }
 
 .quiz-result-item.incorrect .result-badge {
-    background: #c0392b;
+    background: var(--error);
     color: white;
 }
 
