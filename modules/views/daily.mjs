@@ -68,7 +68,9 @@ function renderDashboard(root, data) {
                     aria-label="Play pronunciation"
                     aria-pressed="false"
                   >
-                    ▶️
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
                   </button>
                 `
       : ""
