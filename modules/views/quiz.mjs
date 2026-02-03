@@ -1,5 +1,6 @@
 import { getFavorites } from "../favorites.mjs";
 import { generateQuiz, scoreQuiz, saveQuizResult, getQuizStats } from "../quiz.mjs";
+import { triggerConfetti } from "../confetti.mjs";
 
 function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, (ch) => {
@@ -189,6 +190,11 @@ function submitQuiz(viewRoot) {
 
 function renderResults(viewRoot, result) {
   const scoreColor = result.percentage >= 80 ? "#1e8449" : result.percentage >= 60 ? "#f39c12" : "#c0392b";
+
+  // Trigger confetti for high scores
+  if (result.percentage >= 80) {
+    setTimeout(() => triggerConfetti(), 300);
+  }
 
   const detailsHtml = result.details
     .map(
