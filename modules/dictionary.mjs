@@ -1,4 +1,7 @@
-import { API_KEYS, API_ENDPOINTS } from './config.mjs';
+// Use backend proxy instead of direct API calls
+const BACKEND_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000/api'
+    : 'https://your-vercel-domain.vercel.app/api';
 
 function safeArray(v) {
     return Array.isArray(v) ? v : [];
@@ -67,7 +70,7 @@ export function normalizeDictionaryResult(apiJson) {
 }
 
 export async function getWordData(word) {
-    const url = `${API_ENDPOINTS.MERRIAM_WEBSTER_DICTIONARY}${encodeURIComponent(word.trim())}?key=${API_KEYS.MERRIAM_WEBSTER_DICTIONARY}`;
+    const url = `${BACKEND_URL}/dictionary?word=${encodeURIComponent(word.trim())}`;
     const res = await fetch(url);
 
     if (!res.ok) {

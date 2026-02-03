@@ -1,7 +1,10 @@
-import { API_KEYS, API_ENDPOINTS } from './config.mjs';
+// Use backend proxy instead of direct API calls
+const BACKEND_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000/api'
+    : 'https://your-vercel-domain.vercel.app/api';
 
 /**
- * Translate text using DeepL API.
+ * Translate text using DeepL API (via backend proxy).
  * @param {object} opts
  * @param {string} opts.text - Text to translate
  * @param {string} opts.source - Source language code (e.g., 'EN', 'ES', 'FR') or 'auto' for auto-detect
@@ -11,28 +14,17 @@ export async function translateText({ text, source, target }) {
     const q = (text || "").trim();
     if (!q) return "";
 
-    // DeepL uses uppercase language codes
-    const sourceLang = source.toUpperCase();
-    const targetLang = target.toUpperCase();
-
-    // Build query parameters
-    const params = new URLSearchParams({
-        auth_key: API_KEYS.DEEPL,
-        text: q,
-        target_lang: targetLang,
-    });
-
-    // Only add source_lang if not auto-detect
-    if (sourceLang !== 'AUTO') {
-        params.append('source_lang', sourceLang);
-    }
-
     try {
-        const res = await fetch(`${API_ENDPOINTS.DEEPL}?${params}`, {
+        const res = await fetch(`${BACKEND_URL}/translate`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
             },
+            body: JSON.stringify({
+                text: q,
+                source_lang: source,
+                target_lang: target,
+            }),
         });
 
         if (!res.ok) {
@@ -43,7 +35,7 @@ export async function translateText({ text, source, target }) {
         const data = await res.json();
         return data?.translations?.[0]?.text ?? "";
     } catch (err) {
-        throw new Error(`DeepL translation failed: ${err.message}`);
+        throw new Error(`Translation failed: ${err.message}`);
     }
 }
 
