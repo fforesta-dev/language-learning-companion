@@ -1075,6 +1075,11 @@ body {
     min-width: 24px;
     font-weight: 700;
     margin-right: 12px;
+    color: inherit;
+}
+
+.quiz-answer-btn.selected .answer-letter {
+    color: white;
 }
 
 .answer-text {
