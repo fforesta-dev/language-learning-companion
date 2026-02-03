@@ -1,6 +1,6 @@
 import { getWordData } from "../dictionary.mjs";
 import { getThesaurusData } from "../thesaurus.mjs";
-import { addFavorite, isFavorite } from "../favorites.mjs";
+import { addFavorite, isFavorite, getFavorites } from "../favorites.mjs";
 
 const LS_KEY = "llc-daily";
 
@@ -98,21 +98,17 @@ function renderDashboard(root, data, thesaurus) {
         </div>
 
         <div class="daily-actions">
-          <span class="pill">
+          <button class="btn btn--primary pill" id="saveBtn" type="button">
             <span class="star" aria-hidden="true" id="starIcon">★</span>
-            <button class="btn btn--primary" id="saveBtn" type="button">Save</button>
-          </span>
+            Save
+          </button>
           <p class="meta save-hint" id="saveHint"></p>
         </div>
       </article>
 
       <article class="card card--favorites" aria-label="Favorites recent">
         <h2>Favorites (Recent)</h2>
-        <ul class="list">
-          <li>word 1</li>
-          <li>word 2</li>
-        </ul>
-        <p class="meta">This area will be dynamic in Week 6.</p>
+        <div id="recentFavoritesContainer"></div>
       </article>
 
       <article class="card card--examples" aria-label="Example sentences">
@@ -177,8 +173,26 @@ function renderDashboard(root, data, thesaurus) {
     const saveBtn = root.querySelector("#saveBtn");
     if (starIcon) starIcon.style.color = "#f39c12";
     if (saveBtn) {
-      saveBtn.textContent = "Saved";
+      saveBtn.innerHTML = `<span class="star" aria-hidden="true" style="color: #f39c12;">★</span> Saved`;
       saveBtn.disabled = true;
+    }
+  }
+
+  // Update Favorites (Recent) section
+  const recentContainer = root.querySelector("#recentFavoritesContainer");
+  if (recentContainer) {
+    const favorites = getFavorites();
+    if (favorites.length === 0) {
+      recentContainer.innerHTML = '<p class="meta">No favorites yet. Save words to get started!</p>';
+    } else {
+      const recent = favorites.slice(-5).reverse();
+      const listHtml = recent
+        .map(
+          (fav) =>
+            `<li><strong>${escapeHtml(fav.word)}</strong><br><span class="meta">${escapeHtml(fav.definition || "—")}</span></li>`
+        )
+        .join("");
+      recentContainer.innerHTML = `<ul class="list">${listHtml}</ul>`;
     }
   }
 

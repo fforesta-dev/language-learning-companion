@@ -41,10 +41,9 @@ export async function renderFavorites(viewRoot) {
             </button>
           </div>
           <button 
-            class="btn btn--secondary" 
+            class="btn btn--secondary favorite-view-btn" 
             type="button"
             data-word="${escapeHtml(fav.word)}"
-            class="favorite-view-btn"
           >
             View Details
           </button>

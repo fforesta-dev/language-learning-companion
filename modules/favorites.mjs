@@ -10,12 +10,12 @@ const FAVORITES_KEY = 'llc-favorites';
  * @returns {Array<Object>} Array of favorite word objects
  */
 export function getFavorites() {
-  try {
-    const raw = localStorage.getItem(FAVORITES_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
+    try {
+        const raw = localStorage.getItem(FAVORITES_KEY);
+        return raw ? JSON.parse(raw) : [];
+    } catch {
+        return [];
+    }
 }
 
 /**
@@ -24,24 +24,24 @@ export function getFavorites() {
  * @returns {boolean} True if saved, false if already exists
  */
 export function addFavorite(wordData) {
-  const favorites = getFavorites();
-  
-  // Check if word already exists
-  if (favorites.some((fav) => fav.word?.toLowerCase() === wordData.word?.toLowerCase())) {
-    return false;
-  }
+    const favorites = getFavorites();
 
-  favorites.unshift({
-    ...wordData,
-    savedAt: new Date().toISOString(),
-  });
+    // Check if word already exists
+    if (favorites.some((fav) => fav.word?.toLowerCase() === wordData.word?.toLowerCase())) {
+        return false;
+    }
 
-  try {
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-    return true;
-  } catch {
-    return false;
-  }
+    favorites.unshift({
+        ...wordData,
+        savedAt: new Date().toISOString(),
+    });
+
+    try {
+        localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+        return true;
+    } catch {
+        return false;
+    }
 }
 
 /**
@@ -50,19 +50,19 @@ export function addFavorite(wordData) {
  * @returns {boolean} True if removed
  */
 export function removeFavorite(word) {
-  const favorites = getFavorites();
-  const filtered = favorites.filter((fav) => fav.word?.toLowerCase() !== word?.toLowerCase());
+    const favorites = getFavorites();
+    const filtered = favorites.filter((fav) => fav.word?.toLowerCase() !== word?.toLowerCase());
 
-  if (filtered.length === favorites.length) {
-    return false; // Word wasn't found
-  }
+    if (filtered.length === favorites.length) {
+        return false; // Word wasn't found
+    }
 
-  try {
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(filtered));
-    return true;
-  } catch {
-    return false;
-  }
+    try {
+        localStorage.setItem(FAVORITES_KEY, JSON.stringify(filtered));
+        return true;
+    } catch {
+        return false;
+    }
 }
 
 /**
@@ -71,8 +71,8 @@ export function removeFavorite(word) {
  * @returns {boolean} True if in favorites
  */
 export function isFavorite(word) {
-  const favorites = getFavorites();
-  return favorites.some((fav) => fav.word?.toLowerCase() === word?.toLowerCase());
+    const favorites = getFavorites();
+    return favorites.some((fav) => fav.word?.toLowerCase() === word?.toLowerCase());
 }
 
 /**
@@ -80,10 +80,10 @@ export function isFavorite(word) {
  * @returns {boolean} True if cleared
  */
 export function clearFavorites() {
-  try {
-    localStorage.removeItem(FAVORITES_KEY);
-    return true;
-  } catch {
-    return false;
-  }
+    try {
+        localStorage.removeItem(FAVORITES_KEY);
+        return true;
+    } catch {
+        return false;
+    }
 }
