@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
     try {
         let body = {
-            text,
+            text: [text], // DeepL expects an array of texts
             target_lang: target_lang.toUpperCase(),
         };
 
