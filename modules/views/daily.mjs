@@ -1,6 +1,7 @@
 import { getWordData } from "../dictionary.mjs";
 import { getThesaurusData } from "../thesaurus.mjs";
 import { addFavorite, isFavorite, getFavorites } from "../favorites.mjs";
+import { getQuizStats } from "../quiz.mjs";
 
 const LS_KEY = "llc-daily";
 
@@ -66,6 +67,10 @@ function renderDashboard(root, data, thesaurus) {
       ? `<ul class="list">${antonyms.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`
       : `<p class="meta">No antonyms available.</p>`;
 
+  // Get progress stats
+  const favorites = getFavorites();
+  const quizStats = getQuizStats();
+
   root.innerHTML = `
     <section class="grid" aria-label="Dashboard">
       <article class="card card--daily" aria-label="Daily word">
@@ -127,12 +132,16 @@ function renderDashboard(root, data, thesaurus) {
       </article>
 
       <article class="card card--progress" aria-label="Weekly progress">
-        <h2>Weekly Progress</h2>
+        <h2>Progress</h2>
         <p class="meta meta--xl">
-          Words reviewed: —<br />
-          Quizzes completed: —
+          Words saved: <strong>${favorites.length}</strong><br />
+          Quizzes completed: <strong>${quizStats.totalQuizzes}</strong>
         </p>
-        <p class="meta">Progress tracking starts Week 7.</p>
+        ${
+          quizStats.totalQuizzes > 0
+            ? `<p class="meta">Average score: <strong>${quizStats.averageScore}%</strong></p>`
+            : `<p class="meta">Complete quizzes to track your progress!</p>`
+        }
       </article>
     </section>
   `;
