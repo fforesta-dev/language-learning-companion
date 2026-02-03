@@ -1121,6 +1121,7 @@ body {
     font-size: 32px;
     font-weight: 700;
     margin: 0;
+    color: #1e8449;
 }
 
 .score-text {
@@ -1171,12 +1172,12 @@ body {
 }
 
 .quiz-result-item.correct .result-badge {
-    background: #27ae60;
+    background: #1e8449;
     color: white;
 }
 
 .quiz-result-item.incorrect .result-badge {
-    background: #e74c3c;
+    background: #c0392b;
     color: white;
 }
 
