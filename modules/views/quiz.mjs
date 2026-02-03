@@ -191,11 +191,6 @@ function submitQuiz(viewRoot) {
 function renderResults(viewRoot, result) {
   const scoreColor = result.percentage >= 80 ? "#1e8449" : result.percentage >= 60 ? "#f39c12" : "#c0392b";
 
-  // Trigger confetti for high scores
-  if (result.percentage >= 80) {
-    setTimeout(() => triggerConfetti(), 300);
-  }
-
   const detailsHtml = result.details
     .map(
       (detail) => `
@@ -247,6 +242,11 @@ function renderResults(viewRoot, result) {
     quizState = 'start';
     renderStart(viewRoot);
   });
+
+  // Trigger confetti after DOM is rendered
+  if (result.percentage >= 80) {
+    requestAnimationFrame(() => triggerConfetti());
+  }
 }
 
 export async function renderQuiz(viewRoot) {

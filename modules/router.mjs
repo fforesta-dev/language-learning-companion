@@ -40,7 +40,7 @@ async function renderRoute() {
 
     view.innerHTML = "";
     view.classList.remove("fade-out");
-    
+
     await handler(view, params);
 
     const main = document.querySelector("#main");
