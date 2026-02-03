@@ -1,34 +1,7 @@
 import { initRouter, navigate } from "../modules/router.mjs";
 import { setLangs, getLangs } from "../modules/state.mjs";
-import { initTheme, toggleTheme, getCurrentTheme } from "../modules/theme.mjs";
-
-// Initialize theme
-initTheme();
 
 initRouter();
-
-// Theme toggle button
-const themeToggle = document.querySelector("#themeToggle");
-const lightIcon = document.querySelector(".theme-icon--light");
-const darkIcon = document.querySelector(".theme-icon--dark");
-
-function updateThemeIcons() {
-    const currentTheme = getCurrentTheme();
-    if (currentTheme === 'dark') {
-        lightIcon.style.display = 'none';
-        darkIcon.style.display = 'block';
-    } else {
-        lightIcon.style.display = 'block';
-        darkIcon.style.display = 'none';
-    }
-}
-
-themeToggle.addEventListener("click", () => {
-    toggleTheme();
-    updateThemeIcons();
-});
-
-updateThemeIcons();
 
 // Header: dictionary search
 const searchForm = document.querySelector("#searchForm");
