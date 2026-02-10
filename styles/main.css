@@ -762,6 +762,7 @@ body {
     padding: 32px;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
+    margin-bottom: 1.2rem;
 }
 
 .progress-actions-card:hover {
