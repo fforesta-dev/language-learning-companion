@@ -355,6 +355,21 @@ body {
     border-radius: 50%;
 }
 
+.favorites-remove {
+    background: transparent;
+    border: 2px solid var(--border);
+    color: var(--text-light);
+    font-size: 20px;
+    transition: var(--transition);
+}
+
+.favorites-remove:hover {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: white;
+    transform: rotate(90deg) scale(1.1);
+}
+
 /* ===== LAYOUT ===== */
 .app {
     display: grid;
