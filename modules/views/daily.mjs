@@ -136,10 +136,6 @@ function renderDashboard(root, data, thesaurus) {
         </div>
       </article>
 
-      <article class="card card--favorites" aria-label="Favorites recent">
-        <h2>Favorites (Recent)</h2>
-        <div id="recentFavoritesContainer"></div>
-      </article>
 
       <article class="card card--examples" aria-label="Example sentences">
         <h2>Example Sentences</h2>
@@ -147,7 +143,7 @@ function renderDashboard(root, data, thesaurus) {
         ${usageNotesHtml}
       </article>
 
-      <article class="card card--thesaurus" aria-label="Thesaurus">
+       <article class="card card--thesaurus" aria-label="Thesaurus">
         <h2>Thesaurus</h2>
         <div class="meta meta--lg">
           <div><strong>Synonyms:</strong></div>
@@ -155,6 +151,12 @@ function renderDashboard(root, data, thesaurus) {
           <div style="margin-top: 12px;"><strong>Antonyms:</strong></div>
           ${antonymsHtml}
         </div>
+      </article>
+
+      
+      <article class="card card--favorites" aria-label="Favorites recent">
+        <h2>Favorites (Recent)</h2>
+        <div id="recentFavoritesContainer"></div>
       </article>
 
       <article class="card card--progress" aria-label="Weekly progress">

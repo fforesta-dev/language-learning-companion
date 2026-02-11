@@ -262,6 +262,7 @@ body {
 }
 
 .select:hover {
+    /* background: rgba(255, 255, 255, 0.15); */
     border-color: rgba(255, 255, 255, 0.25);
 }
 
@@ -1158,35 +1159,78 @@ body {
 }
 
 /* Mobile */
+
+/* ===== MOBILE HEADER FIXES ===== */
+
 @media (max-width: 700px) {
+    :root {
+        --topbar-h: auto;
+    }
+
     .menu-toggle {
         display: block;
     }
 
     .topbar {
-        flex-wrap: nowrap;
+        height: auto;
+        min-height: 60px;
+        flex-direction: column;
+        align-items: stretch;
         padding: 12px 16px;
+        gap: 12px;
     }
-
     .topbar__brand {
-        order: 1;
-    }
-
-    .topbar__search {
-        order: 2;
-        width: auto;
-        flex: 1;
-        margin-top: 0;
-    }
-
-    .topbar__langs {
-        order: 3;
+        display: flex;
+        align-items: center;
+        gap: 12px;
         width: 100%;
-        margin-top: 12px;
     }
 
+    .brand__name--full {
+        display: none;
+    }
+
+    .brand__name--short {
+        display: block;
+    }
+
+    .brand__logo {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Second row: Search (full width) */
+    .topbar__search {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .topbar__search input {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .btn--primary {
+        padding: 0 16px;
+    }
+    .topbar__langs.show-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .topbar__langs.show-mobile .select {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .topbar__label {
+        font-size: 12px;
+    }
     .app {
         grid-template-columns: 1fr;
+        min-height: calc(100dvh - 120px - var(--footer-h));
     }
 
     .sidebar {
@@ -1211,24 +1255,32 @@ body {
     }
 
     .main {
-        padding: 20px 16px;
+        padding: 16px;
         padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0) + 20px);
         max-height: none;
         overflow-y: visible;
     }
-
     .card {
         padding: 20px;
+        margin-bottom: 16px;
     }
 
     .card h2 {
         font-size: 20px;
     }
 
+    .card h2::before {
+        width: 4px;
+        height: 20px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+    }
+
     .word-title {
         font-size: 24px;
     }
-
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 16px;
@@ -1243,14 +1295,14 @@ body {
     }
 
     .stat-label {
-        font-size: 11px;
+        font-size: 10px;
     }
+
     .progress-stats-card,
     .progress-actions-card,
     .quiz-history-card {
         padding: 24px 20px;
     }
-
 
     .form-row {
         grid-template-columns: 1fr;
@@ -1264,482 +1316,155 @@ body {
     body.sidebar-open {
         overflow: hidden;
     }
+
+    /* Footer */
+    .footer {
+        font-size: 11px;
+        padding: 12px 16px;
+        text-align: center;
+    }
 }
 
-/* iPhone-specific fixes */
-@supports (padding: max(0px)) {
+
+@media (max-width: 650px) {
+     .topbar__langs {
+        display: block;
+    }
+    .select{
+        width: 100%;
+    }
+    #goTranslateBtn{
+        margin-top: 1rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 400px) {
     .topbar {
-        padding-left: max(16px, env(safe-area-inset-left));
-        padding-right: max(16px, env(safe-area-inset-right));
+        padding: 10px 12px;
+    }
+
+    .brand__name {
+        font-size: 16px;
+    }
+
+    .topbar__search {
+        gap: 6px;
+    }
+
+    .topbar__search input {
+        padding: 0 12px;
+        height: 40px;
+    }
+
+    .btn--primary {
+        height: 40px;
+        padding: 0 14px;
+        font-size: 13px;
+    }
+
+    .card {
+        padding: 16px;
     }
 
     .main {
-        padding-left: max(32px, env(safe-area-inset-left));
-        padding-right: max(32px, env(safe-area-inset-right));
-    }
-
-    @media (max-width: 900px) {
-        .main {
-            padding-left: max(24px, env(safe-area-inset-left));
-            padding-right: max(24px, env(safe-area-inset-right));
-        }
-    }
-
-    @media (max-width: 700px) {
-        .main {
-            padding-left: max(16px, env(safe-area-inset-left));
-            padding-right: max(16px, env(safe-area-inset-right));
-        }
-
-        .sidebar {
-            padding-left: max(12px, env(safe-area-inset-left));
-        }
+        padding: 12px;
+        margin-bottom: 3rem;
     }
 }
 
-/* Prevent zoom on iOS */
-@media (max-width: 700px) {
-    input,
-    select,
-    textarea {
-        font-size: 16px;
-    }
-}
-
-/* iOS Safari fixes */
-@supports (-webkit-touch-callout: none) {
-    .app {
-        min-height: -webkit-fill-available;
-    }
-
-    body {
-        min-height: -webkit-fill-available;
-    }
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--muted);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--text-light);
-}
-/* Daily Word Page Improvements */
-.daily-word-layout {
+/* Daily Word - 5 Card Layout */
+.daily-word-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    align-items: start;
-}
-
-.daily-word-main {
-    grid-column: 1;
-}
-
-.daily-word-sidebar {
-    grid-column: 2;
-    display: flex;
-    flex-direction: column;
     gap: 24px;
 }
 
-/* Word Header Section */
-.word-display {
-    margin-bottom: 24px;
+/* Desktop: 3-column grid */
+@media (min-width: 1200px) {
+    .daily-word-container {
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "main examples thesaurus"
+            "main favorites progress";
+    }
+
+    .daily-word-main {
+        grid-area: main;
+    }
+
+    .examples-card {
+        grid-area: examples;
+    }
+
+    .thesaurus-card {
+        grid-area: thesaurus;
+    }
+
+    .favorites-card {
+        grid-area: favorites;
+    }
+
+    .progress-card {
+        grid-area: progress;
+    }
 }
 
-.word-display h2 {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--primary);
-    margin: 0 0 8px;
-    font-family: var(--font-heading);
-    letter-spacing: -0.5px;
+/* Tablet: 2-column grid */
+@media (min-width: 701px) and (max-width: 1199px) {
+    .daily-word-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "main examples"
+            "main thesaurus"
+            "favorites progress";
+    }
+
+    .daily-word-main {
+        grid-area: main;
+    }
+
+    .examples-card {
+        grid-area: examples;
+    }
+
+    .thesaurus-card {
+        grid-area: thesaurus;
+    }
+
+    .favorites-card {
+        grid-area: favorites;
+    }
+
+    .progress-card {
+        grid-area: progress;
+    }
 }
 
-.word-pronunciation {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-.word-pronunciation .phonetic {
-    font-size: 18px;
-    color: var(--text-light);
-    font-style: italic;
-}
-
-.word-pronunciation .play-btn {
-    background: var(--secondary);
-    border: none;
-    color: #fff;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.word-pronunciation .play-btn:hover {
-    background: var(--secondary-hover);
-    transform: scale(1.1);
-}
-
-.word-type-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: linear-gradient(135deg, #e8f4f8 0%, #f0f9ff 100%);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--secondary);
-    border: 1px solid rgba(52, 152, 219, 0.2);
-}
-
-/* Definitions Section */
-.definitions-section {
-    margin: 28px 0;
-}
-
-.definitions-section h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--primary);
-    margin: 0 0 16px;
-    font-family: var(--font-heading);
-}
-
-.definitions-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.definitions-list li {
-    padding: 14px 18px;
-    margin-bottom: 12px;
-    border-left: 4px solid var(--secondary);
-    background: linear-gradient(90deg, rgba(52, 152, 219, 0.05) 0%, transparent 100%);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    line-height: 1.7;
-    position: relative;
-}
-
-.definitions-list li::before {
-    content: attr(data-number);
-    position: absolute;
-    left: -2px;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--secondary);
-    color: #fff;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-/* Word Origin Section */
-.word-origin-section {
-    margin: 28px 0;
-}
-
-.word-origin-box {
-    background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
-    border: 2px solid rgba(243, 156, 18, 0.2);
-    border-radius: var(--radius);
-    padding: 20px;
-}
-
-.word-origin-box h4 {
-    margin: 0 0 12px;
-    color: var(--accent);
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.word-origin-box h4::before {
-    content: "📜";
-    font-size: 20px;
-}
-
-.word-origin-box p {
-    margin: 0 0 8px;
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--text);
-}
-
-.word-origin-box p:last-child {
-    margin-bottom: 0;
-}
-
-.first-use {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 4px 12px;
-    background: rgba(243, 156, 18, 0.1);
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-}
-
-/* Save to Favorites Button */
-.save-to-favorites {
-    margin-top: 24px;
-}
-
-.save-favorite-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-    color: var(--text);
-    padding: 12px 24px;
-    border-radius: 24px;
-    font-size: 15px;
-    font-weight: 600;
-    box-shadow: var(--shadow);
-    border: 2px solid var(--border);
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.save-favorite-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--accent);
-    background: linear-gradient(135deg, #fff 0%, #fffbf0 100%);
-}
-
-.save-favorite-btn .star {
-    color: var(--accent);
-    font-size: 20px;
-    filter: drop-shadow(0 1px 2px rgba(243, 156, 18, 0.4));
-}
-
-/* Sidebar Cards */
-.favorites-card,
-.examples-card,
-.thesaurus-card,
-.progress-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-md);
-    padding: 24px;
-    transition: var(--transition);
-}
-
-.favorites-card:hover,
-.examples-card:hover,
-.thesaurus-card:hover,
-.progress-card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
-}
-
-.sidebar-card-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--primary);
-    margin: 0 0 16px;
-    font-family: var(--font-heading);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.sidebar-card-title::before {
-    content: "";
-    display: inline-block;
-    width: 4px;
-    height: 20px;
-    background: linear-gradient(180deg, var(--secondary) 0%, var(--accent) 100%);
-    border-radius: 2px;
-}
-
-/* Example Sentences */
-.examples-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.examples-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    line-height: 1.6;
-    color: var(--text);
-}
-
-.examples-list li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.examples-list li::before {
-    content: "•";
-    color: var(--secondary);
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-    margin-right: 8px;
-}
-
-/* Thesaurus Section */
-.thesaurus-content {
-    margin-bottom: 20px;
-}
-
-.thesaurus-content:last-child {
-    margin-bottom: 0;
-}
-
-.thesaurus-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-light);
-    margin: 0 0 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.synonym-list,
-.antonym-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.synonym-tag,
-.antonym-tag {
-    display: inline-block;
-    padding: 6px 12px;
-    background: linear-gradient(135deg, #e8f4f8 0%, #f0f9ff 100%);
-    color: var(--secondary);
-    border-radius: 16px;
-    font-size: 13px;
-    font-weight: 500;
-    border: 1px solid rgba(52, 152, 219, 0.2);
-    transition: var(--transition);
-}
-
-.synonym-tag:hover,
-.antonym-tag:hover {
-    background: var(--secondary);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-.antonym-tag {
-    background: linear-gradient(135deg, #ffe8e8 0%, #fff0f0 100%);
-    color: var(--danger);
-    border-color: rgba(231, 76, 60, 0.2);
-}
-
-.antonym-tag:hover {
-    background: var(--danger);
-    color: #fff;
-}
-
-/* Progress Mini Card */
-.progress-mini {
-    text-align: center;
-}
-
-.progress-stat {
-    margin-bottom: 12px;
-}
-
-.progress-stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--primary);
-    font-family: var(--font-heading);
-    display: block;
-    margin-bottom: 4px;
-}
-
-.progress-stat-label {
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-}
-
-.progress-note {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 12px;
-    font-style: italic;
-}
-
-/* Empty State */
-.empty-favorites {
-    text-align: center;
-    padding: 20px;
-    color: var(--muted);
-    font-size: 14px;
-}
-
-/* Responsive for Daily Word */
-@media (max-width: 900px) {
-    .daily-word-layout {
+/* Mobile: Single column with correct order */
+@media (max-width: 700px) {
+    .daily-word-container {
         grid-template-columns: 1fr;
     }
 
-    .daily-word-main,
-    .daily-word-sidebar {
-        grid-column: 1;
-    }
-}
-
-@media (max-width: 700px) {
-    .word-display h2 {
-        font-size: 28px;
+    /* Order matters on mobile */
+    .daily-word-main {
+        order: 1;
     }
 
-    .definitions-list li::before {
-        display: none;
+    .examples-card {
+        order: 2;
     }
 
-    .definitions-list li {
-        padding-left: 18px;
+    .thesaurus-card {
+        order: 3;
     }
 
-    .sidebar-card-title {
-        font-size: 18px;
+    .favorites-card {
+        order: 4;
+    }
+
+    .progress-card {
+        order: 5;
     }
 }
