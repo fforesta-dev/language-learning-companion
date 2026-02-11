@@ -311,15 +311,15 @@ body {
 }
 
 .btn--primary {
-    background: #fff;
-    color: var(--primary);
+    background: var(--secondary);
+    color: #fff;
     font-weight: 700;
 }
 
 .btn--primary:hover {
-    background: #f1f5f9;
+    background: var(--secondary-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
 }
 
 .btn--secondary {
