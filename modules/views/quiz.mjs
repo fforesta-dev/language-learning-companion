@@ -105,7 +105,7 @@ function renderQuestion(viewRoot) {
         <button 
           class="quiz-answer-btn ${selectedAnswer === answer.definition ? 'selected' : ''}" 
           type="button"
-          data-definition="${escapeHtml(answer.definition)}"
+          data-answer-index="${index}"
         >
           <span class="answer-letter">${answerLetters[index]}</span>
           <span class="answer-text">${escapeHtml(answer.definition)}</span>
@@ -155,7 +155,8 @@ function renderQuestion(viewRoot) {
   // Answer selection
   viewRoot.querySelectorAll(".quiz-answer-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const definition = btn.dataset.definition;
+      const answerIndex = parseInt(btn.dataset.answerIndex);
+      const definition = question.answers[answerIndex].definition;
       currentAnswers[currentQuestionIndex] = definition;
       renderQuestion(viewRoot);
     });
