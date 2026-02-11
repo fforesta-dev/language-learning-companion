@@ -25,12 +25,19 @@ export async function renderFavorites(viewRoot) {
     .map(
       (fav, index) => `
         <article class="favorite-item card" data-index="${index}">
-          <div class="favorite-header">
-            <div>
-              <h4 style="margin: 0 0 4px;">${escapeHtml(fav.word)}</h4>
-              <p class="meta" style="margin: 0;">${escapeHtml(fav.definition || "—")}</p>
-              ${fav.phonetic ? `<p class="meta" style="margin: 4px 0 0; font-size: 12px;">/${escapeHtml(fav.phonetic)}/</p>` : ""}
-            </div>
+          <div class="favorite-content">
+            <h4 style="margin: 0 0 4px;">${escapeHtml(fav.word)}</h4>
+            <p class="meta" style="margin: 0;">${escapeHtml(fav.definition || "—")}</p>
+            ${fav.phonetic ? `<p class="meta" style="margin: 4px 0 0; font-size: 12px;">/${escapeHtml(fav.phonetic)}/</p>` : ""}
+          </div>
+          <div class="favorite-actions">
+            <button 
+              class="btn btn--secondary favorite-view-btn" 
+              type="button"
+              data-word="${escapeHtml(fav.word)}"
+            >
+              View Details
+            </button>
             <button 
               class="btn btn--icon favorites-remove" 
               type="button" 
@@ -40,13 +47,6 @@ export async function renderFavorites(viewRoot) {
               ✕
             </button>
           </div>
-          <button 
-            class="btn btn--secondary favorite-view-btn" 
-            type="button"
-            data-word="${escapeHtml(fav.word)}"
-          >
-            View Details
-          </button>
         </article>
       `
     )

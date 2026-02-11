@@ -370,6 +370,26 @@ body {
     transform: rotate(90deg) scale(1.1);
 }
 
+.favorite-item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.favorite-content {
+    flex: 1;
+}
+
+.favorite-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.favorite-actions .favorite-view-btn {
+    flex: 1;
+}
+
 /* ===== LAYOUT ===== */
 .app {
     display: grid;
