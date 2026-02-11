@@ -56,7 +56,7 @@ export async function renderFavorites(viewRoot) {
     <section class="favorites-container">
       <div class="card" style="grid-column: 1 / -1;">
         <h2>My Favorites (${favorites.length})</h2>
-        <button class="btn btn--secondary" id="clearAllBtn" type="button">Clear All</button>
+        <button class="btn btn--secondary btn--danger-hover" id="clearAllBtn" type="button">Clear All</button>
       </div>
       <div class="favorites-grid">
         ${favoritesList}
