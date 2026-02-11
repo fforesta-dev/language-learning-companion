@@ -97,8 +97,8 @@ function renderDashboard(root, data, thesaurus) {
     : '';
 
   root.innerHTML = `
-    <section class="grid" aria-label="Dashboard">
-      <article class="card card--daily" aria-label="Daily word">
+    <div class="daily-word-container" aria-label="Dashboard">
+      <article class="card daily-word-main" aria-label="Daily word">
         <h2>Daily Word</h2>
 
         <div class="word-header">
@@ -137,13 +137,13 @@ function renderDashboard(root, data, thesaurus) {
       </article>
 
 
-      <article class="card card--examples" aria-label="Example sentences">
+      <article class="card examples-card" aria-label="Example sentences">
         <h2>Example Sentences</h2>
         ${examplesHtml}
         ${usageNotesHtml}
       </article>
 
-       <article class="card card--thesaurus" aria-label="Thesaurus">
+       <article class="card thesaurus-card" aria-label="Thesaurus">
         <h2>Thesaurus</h2>
         <div class="meta meta--lg">
           <div><strong>Synonyms:</strong></div>
@@ -154,12 +154,12 @@ function renderDashboard(root, data, thesaurus) {
       </article>
 
       
-      <article class="card card--favorites" aria-label="Favorites recent">
+      <article class="card favorites-card" aria-label="Favorites recent">
         <h2>Favorites (Recent)</h2>
         <div id="recentFavoritesContainer"></div>
       </article>
 
-      <article class="card card--progress" aria-label="Weekly progress">
+      <article class="card progress-card" aria-label="Weekly progress">
         <h2>Progress</h2>
         <p class="meta meta--xl">
           Words saved: <strong>${favorites.length}</strong><br />
@@ -170,7 +170,7 @@ function renderDashboard(root, data, thesaurus) {
       : `<p class="meta">Complete quizzes to track your progress!</p>`
     }
       </article>
-    </section>
+    </div>
   `;
 
   // Save button - add favorite
@@ -179,7 +179,7 @@ function renderDashboard(root, data, thesaurus) {
     const saveHint = root.querySelector("#saveHint");
     const starIcon = root.querySelector("#starIcon");
     const recentContainer = root.querySelector("#recentFavoritesContainer");
-    const progressCard = root.querySelector(".card--progress");
+    const progressCard = root.querySelector(".progress-card");
 
     const wordData = {
       word: data.word,

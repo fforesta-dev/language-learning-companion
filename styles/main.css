@@ -1383,10 +1383,11 @@ body {
 @media (min-width: 1200px) {
     .daily-word-container {
         grid-template-columns: 2fr 1fr 1fr;
-        grid-template-rows: auto auto;
+        grid-template-rows: auto auto auto;
         grid-template-areas:
             "main examples thesaurus"
-            "main favorites progress";
+            "main favorites favorites"
+            "main progress progress";
     }
 
     .daily-word-main {
@@ -1417,7 +1418,8 @@ body {
         grid-template-areas:
             "main examples"
             "main thesaurus"
-            "favorites progress";
+            "favorites favorites"
+            "progress progress";
     }
 
     .daily-word-main {
