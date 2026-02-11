@@ -244,9 +244,11 @@ function renderResults(viewRoot, result) {
     renderStart(viewRoot);
   });
 
-  // Trigger confetti after DOM is rendered
+  // Trigger confetti immediately for high scores
   if (result.percentage >= 80) {
-    requestAnimationFrame(() => triggerConfetti());
+    setTimeout(() => {
+      triggerConfetti();
+    }, 300);
   }
 }
 
