@@ -550,7 +550,7 @@ body {
 
 .navlink.is-active svg {
     opacity: 1;
-    color: var(--accent);
+    color: #fff;
 }
 
 /* ===== MAIN CONTENT ===== */
