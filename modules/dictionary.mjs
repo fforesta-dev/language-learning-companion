@@ -16,9 +16,7 @@ function cleanText(text) {
 }
 
 export function normalizeDictionaryResult(apiJson) {
-    console.log('[Dictionary] Raw API response:', JSON.stringify(apiJson).substring(0, 500));
-
-    const entry = safeArray(apiJson)[0] || {};
+    const entry = safeArray(apiJson)[0];
 
     if (typeof entry === 'string') {
         throw new Error(`Word not found. Did you mean: ${apiJson.slice(0, 5).join(', ')}?`);
@@ -48,14 +46,12 @@ export function normalizeDictionaryResult(apiJson) {
     const examples = [];
     // Collect examples from all definition sections and all senses
     const allDefs = safeArray(entry.def);
-    console.log(`[Dictionary] Found ${allDefs.length} definition sections for "${word}"`);
 
     for (const defSection of allDefs) {
         if (defSection.sseq) {
             for (const sense of defSection.sseq) {
                 for (const item of sense) {
                     if (item[0] === 'sense' && item[1]?.dt) {
-                        console.log(`[Dictionary] dt items for "${word}":`, item[1].dt.map(d => d[0]));
                         for (const dtItem of item[1].dt) {
                             if (dtItem[0] === 'vis') {
                                 for (const vis of dtItem[1]) {
@@ -70,8 +66,6 @@ export function normalizeDictionaryResult(apiJson) {
             }
         }
     }
-
-    console.log(`[Dictionary] Found ${examples.length} examples in main entry for "${word}"`);
 
     // Also check other entries for the same word
     const allEntries = safeArray(apiJson);
@@ -103,8 +97,6 @@ export function normalizeDictionaryResult(apiJson) {
             }
         }
     }
-
-    console.log(`[Dictionary] Total examples found for "${word}": ${examples.length}`);
 
     const usageNotes = [];
     // Collect usage notes from all definition sections (reuse allDefs from above)
