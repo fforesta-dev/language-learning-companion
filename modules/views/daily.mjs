@@ -186,7 +186,7 @@ function renderDashboard(root, data, thesaurus) {
     const added = addFavorite(wordData);
 
     if (added) {
-      saveBtn.innerHTML = `<span class="star" aria-hidden="true" style="color: #f39c12;">★</span> Saved`;
+      saveBtn.innerHTML = `<span class="star" aria-hidden="true" style="color: #1a1a1a;">★</span> Saved`;
       saveHint.textContent = "Added to your favorites.";
       saveBtn.disabled = true;
 
@@ -219,16 +219,16 @@ function renderDashboard(root, data, thesaurus) {
       }
     } else {
       saveHint.textContent = "Already in your favorites!";
-      if (starIcon) starIcon.style.color = "#f39c12";
+      if (starIcon) starIcon.style.color = "#1a1a1a";
     }
   });
 
   if (isFavorite(data.word)) {
     const starIcon = root.querySelector("#starIcon");
     const saveBtn = root.querySelector("#saveBtn");
-    if (starIcon) starIcon.style.color = "#f39c12";
+    if (starIcon) starIcon.style.color = "#1a1a1a";
     if (saveBtn) {
-      saveBtn.innerHTML = `<span class="star" aria-hidden="true" style="color: #f39c12;">★</span> Saved`;
+      saveBtn.innerHTML = `<span class="star" aria-hidden="true" style="color: #1a1a1a;">★</span> Saved`;
       saveBtn.disabled = true;
     }
   }

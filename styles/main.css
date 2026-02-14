@@ -717,6 +717,14 @@ body {
     border: 1px solid rgba(36, 113, 163, 0.2);
 }
 
+.meta {
+    color: #1a1a1a;
+}
+
+.meta strong {
+    color: #1a1a1a;
+}
+
 .definitions-list {
     list-style: none;
     padding: 0;
@@ -788,6 +796,7 @@ body {
 .star {
     font-size: 18px;
     line-height: 1;
+    color: #1a1a1a;
 }
 
 .save-hint {
@@ -820,7 +829,7 @@ body {
 }
 
 .save-btn .star {
-    color: var(--accent);
+    color: #1a1a1a;
     font-size: 18px;
 }
 
