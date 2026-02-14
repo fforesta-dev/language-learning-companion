@@ -32,10 +32,15 @@ export async function translateText({ text, source, target }) {
 }
 
 async function safeErrorMessage(res) {
+    const fallback = res.clone();
     try {
         const data = await res.json();
-        return data?.message || "";
+        return data?.error || data?.message || "";
     } catch {
-        return "";
+        try {
+            return await fallback.text();
+        } catch {
+            return "";
+        }
     }
 }
