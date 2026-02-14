@@ -17,7 +17,7 @@ function cleanText(text) {
 
 export function normalizeDictionaryResult(apiJson) {
     console.log('[Dictionary] Raw API response:', JSON.stringify(apiJson).substring(0, 500));
-    
+
     const entry = safeArray(apiJson)[0] || {};
 
     if (typeof entry === 'string') {
@@ -49,7 +49,7 @@ export function normalizeDictionaryResult(apiJson) {
     // Collect examples from all definition sections and all senses
     const allDefs = safeArray(entry.def);
     console.log(`[Dictionary] Found ${allDefs.length} definition sections for "${word}"`);
-    
+
     for (const defSection of allDefs) {
         if (defSection.sseq) {
             for (const sense of defSection.sseq) {
