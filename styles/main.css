@@ -550,7 +550,12 @@ body {
 
 .navlink.is-active svg {
     opacity: 1;
-    color: #fff;
+    color: #fff !important;
+    stroke: #fff !important;
+}
+
+.navlink.is-active svg polygon {
+    stroke: #fff !important;
 }
 
 /* ===== MAIN CONTENT ===== */
