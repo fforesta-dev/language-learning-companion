@@ -55,6 +55,7 @@ export function normalizeDictionaryResult(apiJson) {
             for (const sense of defSection.sseq) {
                 for (const item of sense) {
                     if (item[0] === 'sense' && item[1]?.dt) {
+                        console.log(`[Dictionary] dt items for "${word}":`, item[1].dt.map(d => d[0]));
                         for (const dtItem of item[1].dt) {
                             if (dtItem[0] === 'vis') {
                                 for (const vis of dtItem[1]) {
