@@ -758,35 +758,33 @@ body {
 }
 
 /* Save Button */
+.daily-actions {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.daily-actions .btn {
+    min-width: 200px;
+}
+
+.star {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.save-hint {
+    text-align: center;
+    min-height: 20px;
+    font-weight: 500;
+}
+
 .save-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-
-
-    .daily-actions {
-        margin-top: 24px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .daily-actions .btn {
-        min-width: 200px;
-    }
-
-    .star {
-        font-size: 18px;
-        line-height: 1;
-    }
-
-    .save-hint {
-        text-align: center;
-        min-height: 20px;
-        font-weight: 500;
-    }
-
     background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
     color: var(--text);
     padding: 10px 20px;
