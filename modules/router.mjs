@@ -1,4 +1,5 @@
 import { renderDaily } from "./views/daily.mjs";
+import { renderSearch } from "./views/search.mjs";
 import { renderTranslate } from "./views/translate.mjs";
 import { renderFavorites } from "./views/favorites.mjs";
 import { renderQuiz } from "./views/quiz.mjs";
@@ -6,6 +7,7 @@ import { renderProgress } from "./views/progress.mjs";
 
 const routes = {
     daily: renderDaily,
+    search: renderSearch,
     translate: renderTranslate,
     favorites: renderFavorites,
     quiz: renderQuiz,

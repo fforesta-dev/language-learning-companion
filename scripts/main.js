@@ -10,7 +10,7 @@ searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const q = (searchInput.value || "").trim();
     if (!q) return;
-    navigate(`/daily?word=${encodeURIComponent(q)}`);
+    navigate(`/search?word=${encodeURIComponent(q)}`);
     searchInput.blur();
 });
 
