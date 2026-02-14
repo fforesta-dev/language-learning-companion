@@ -13,7 +13,7 @@
     --card: #ffffff;
     --text: #2c3e50;
     --text-light: #5d6d7e;
-    --muted: #95a5a6;
+    --muted: #6c7a89;
     --border: #e2e8f0;
     --focus: #2471a3;
     --radius: 12px;
@@ -1124,12 +1124,12 @@ body {
 
 .quiz-result-item.correct {
     border-color: var(--success);
-    background: rgba(39, 174, 96, 0.05);
+    background: rgba(30, 132, 73, 0.05);
 }
 
 .quiz-result-item.incorrect {
     border-color: var(--danger);
-    background: rgba(231, 76, 60, 0.05);
+    background: rgba(192, 57, 43, 0.05);
 }
 
 .quiz-result-item h4 {

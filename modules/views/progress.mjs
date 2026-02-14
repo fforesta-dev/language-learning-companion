@@ -20,7 +20,7 @@ export async function renderProgress(viewRoot) {
       const date = new Date(quiz.completedAt);
       const dateStr = date.toLocaleDateString();
       const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const scoreColor = quiz.percentage >= 80 ? "#27ae60" : quiz.percentage >= 60 ? "#f39c12" : "#e74c3c";
+      const scoreColor = quiz.percentage >= 80 ? "#1e8449" : quiz.percentage >= 60 ? "#7d5a00" : "#c0392b";
 
       return `
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--border);">
@@ -82,9 +82,9 @@ export async function renderProgress(viewRoot) {
       <div class="quiz-history-card">
         <h2>Recent Quiz History</h2>
         ${quizHistory.length > 0
-          ? `<div style="margin-top: 16px;">${recentQuizzes}</div>`
-          : `<div class="empty-state"><p>No quizzes completed yet. Start a quiz to track your progress!</p></div>`
-        }
+      ? `<div style="margin-top: 16px;">${recentQuizzes}</div>`
+      : `<div class="empty-state"><p>No quizzes completed yet. Start a quiz to track your progress!</p></div>`
+    }
       </div>
     </section>
   `;
