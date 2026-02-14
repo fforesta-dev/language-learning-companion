@@ -44,15 +44,50 @@ export function normalizeDictionaryResult(apiJson) {
     const variants = entry.vrs?.map(v => cleanText(v.va || v.vl)).filter(Boolean) || [];
 
     const examples = [];
-    if (entry.def?.[0]?.sseq) {
-        for (const sense of entry.def[0].sseq) {
-            for (const item of sense) {
-                if (item[0] === 'sense' && item[1]?.dt) {
-                    for (const dtItem of item[1].dt) {
-                        if (dtItem[0] === 'vis') {
-                            for (const vis of dtItem[1]) {
-                                if (vis.t) {
-                                    examples.push(cleanText(vis.t));
+    // Collect examples from all definition sections and all senses
+    const allDefs = safeArray(entry.def);
+    for (const defSection of allDefs) {
+        if (defSection.sseq) {
+            for (const sense of defSection.sseq) {
+                for (const item of sense) {
+                    if (item[0] === 'sense' && item[1]?.dt) {
+                        for (const dtItem of item[1].dt) {
+                            if (dtItem[0] === 'vis') {
+                                for (const vis of dtItem[1]) {
+                                    if (vis.t) {
+                                        examples.push(cleanText(vis.t));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Also check other entries for the same word
+    const allEntries = safeArray(apiJson);
+    for (let i = 1; i < allEntries.length; i++) {
+        const otherEntry = allEntries[i];
+        if (typeof otherEntry === 'string') continue;
+
+        const otherWord = otherEntry.meta?.id?.split(':')[0] || otherEntry.hwi?.hw?.replace(/\*/g, '') || "";
+        if (otherWord.toLowerCase() === word.toLowerCase()) {
+            const otherDefs = safeArray(otherEntry.def);
+            for (const defSection of otherDefs) {
+                if (defSection.sseq) {
+                    for (const sense of defSection.sseq) {
+                        for (const item of sense) {
+                            if (item[0] === 'sense' && item[1]?.dt) {
+                                for (const dtItem of item[1].dt) {
+                                    if (dtItem[0] === 'vis') {
+                                        for (const vis of dtItem[1]) {
+                                            if (vis.t) {
+                                                examples.push(cleanText(vis.t));
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -63,15 +98,18 @@ export function normalizeDictionaryResult(apiJson) {
     }
 
     const usageNotes = [];
-    if (entry.def?.[0]?.sseq) {
-        for (const sense of entry.def[0].sseq) {
-            for (const item of sense) {
-                if (item[0] === 'sense' && item[1]?.dt) {
-                    for (const dtItem of item[1].dt) {
-                        if (dtItem[0] === 'un' && Array.isArray(dtItem[1])) {
-                            for (const un of dtItem[1]) {
-                                if (un.text) {
-                                    usageNotes.push(cleanText(un.text));
+    // Collect usage notes from all definition sections (reuse allDefs from above)
+    for (const defSection of allDefs) {
+        if (defSection.sseq) {
+            for (const sense of defSection.sseq) {
+                for (const item of sense) {
+                    if (item[0] === 'sense' && item[1]?.dt) {
+                        for (const dtItem of item[1].dt) {
+                            if (dtItem[0] === 'un' && Array.isArray(dtItem[1])) {
+                                for (const un of dtItem[1]) {
+                                    if (un.text) {
+                                        usageNotes.push(cleanText(un.text));
+                                    }
                                 }
                             }
                         }
@@ -92,7 +130,7 @@ export function normalizeDictionaryResult(apiJson) {
         dateFirstUsed: cleanText(rawDate),
         labels,
         variants,
-        examples: examples.slice(0, 8),
+        examples: examples.slice(0, 12),
         usageNotes,
         audioUrl,
         fetchedAt: new Date().toISOString(),
