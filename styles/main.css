@@ -363,6 +363,10 @@ body {
     font-weight: 700;
 }
 
+.btn--primary .star {
+    color: #fff;
+}
+
 .btn--primary:hover {
     background: var(--secondary-hover);
     transform: translateY(-1px);
