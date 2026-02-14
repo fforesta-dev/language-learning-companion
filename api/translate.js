@@ -19,7 +19,17 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { text, source_lang, target_lang } = req.body;
+    // Parse body if it's a string
+    let body = req.body;
+    if (typeof body === 'string') {
+        try {
+            body = JSON.parse(body);
+        } catch (e) {
+            return res.status(400).json({ error: 'Invalid JSON body' });
+        }
+    }
+
+    const { text, source_lang, target_lang } = body;
 
     if (!text || !target_lang) {
         return res.status(400).json({ error: 'text and target_lang are required' });
@@ -27,7 +37,8 @@ export default async function handler(req, res) {
 
     const API_KEY = process.env.DEEPL_API_KEY;
     if (!API_KEY) {
-        return res.status(500).json({ error: 'Server configuration error' });
+        console.error('DEEPL_API_KEY environment variable is not set');
+        return res.status(500).json({ error: 'Server configuration error: API key not configured' });
     }
 
     try {
@@ -66,6 +77,11 @@ export default async function handler(req, res) {
         res.status(200).json(data);
     } catch (error) {
         console.error('Translation error:', error);
-        res.status(500).json({ error: error.message });
+        console.error('Error details:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name
+        });
+        res.status(500).json({ error: error.message || 'Translation failed' });
     }
 }
