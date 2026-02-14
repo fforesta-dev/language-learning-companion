@@ -34,7 +34,6 @@ async function renderRoute() {
     const handler = routes[path] || routes.daily;
     setActiveNav(path in routes ? path : "daily");
 
-    // Add fade-out class and wait for animation
     view.classList.add("fade-out");
     await new Promise(resolve => setTimeout(resolve, 200));
 
@@ -52,7 +51,6 @@ async function renderRoute() {
         }
     }
 
-    // Ensure we stay at the top after render (mobile browsers sometimes restore scroll).
     requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }));
 }
 

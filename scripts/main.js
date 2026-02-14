@@ -3,7 +3,6 @@ import { setLangs, getLangs } from "../modules/state.mjs";
 
 initRouter();
 
-// Header: dictionary search
 const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
 
@@ -15,7 +14,6 @@ searchForm.addEventListener("submit", (e) => {
     searchInput.blur();
 });
 
-// Language selects
 const fromLang = document.querySelector("#fromLang");
 const toLang = document.querySelector("#toLang");
 const goTranslateBtn = document.querySelector("#goTranslateBtn");

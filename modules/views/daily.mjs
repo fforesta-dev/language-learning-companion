@@ -54,7 +54,6 @@ function renderDashboard(root, data, thesaurus) {
       ? `<ul class="list">${examples.map((e) => `<li>${escapeHtml(e)}</li>`).join("")}</ul>`
       : `<p class="meta">No examples available for this word.</p>`;
 
-  // All definitions
   const allDefs = Array.isArray(data.allDefinitions) ? data.allDefinitions : [data.definition];
   const definitionsHtml = allDefs.length > 0
     ? `<ol class="definitions-list">${allDefs.map((def, i) => `<li><strong>${i + 1}.</strong> ${escapeHtml(def)}</li>`).join("")}</ol>`
@@ -73,16 +72,13 @@ function renderDashboard(root, data, thesaurus) {
       ? `<ul class="list">${antonyms.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`
       : `<p class="meta">No antonyms available.</p>`;
 
-  // Get progress stats
   const favorites = getFavorites();
   const quizStats = getQuizStats();
 
-  // Usage notes
   const usageNotesHtml = Array.isArray(data.usageNotes) && data.usageNotes.length > 0
     ? `<div class="usage-notes"><h3>Usage Notes</h3><ul class="list">${data.usageNotes.map(note => `<li>${escapeHtml(note)}</li>`).join('')}</ul></div>`
     : '';
 
-  // Etymology section
   const etymologyHtml = data.etymology
     ? `<div class="etymology-section">
         <h3>Word Origin</h3>
@@ -91,7 +87,6 @@ function renderDashboard(root, data, thesaurus) {
       </div>`
     : '';
 
-  // Variants
   const variantsHtml = Array.isArray(data.variants) && data.variants.length > 0
     ? `<p class="meta meta--sm"><strong>Also spelled:</strong> ${data.variants.map(v => escapeHtml(v)).join(', ')}</p>`
     : '';
@@ -191,12 +186,10 @@ function renderDashboard(root, data, thesaurus) {
     const added = addFavorite(wordData);
 
     if (added) {
-      // Update button appearance
       saveBtn.innerHTML = `<span class="star" aria-hidden="true" style="color: #f39c12;">★</span> Saved`;
       saveHint.textContent = "Added to your favorites.";
       saveBtn.disabled = true;
 
-      // Update Favorites (Recent) section immediately
       if (recentContainer) {
         const favorites = getFavorites();
         const recent = favorites.slice(-5).reverse();
@@ -209,7 +202,6 @@ function renderDashboard(root, data, thesaurus) {
         recentContainer.innerHTML = `<ul class="list">${listHtml}</ul>`;
       }
 
-      // Update Progress card immediately
       if (progressCard) {
         const favorites = getFavorites();
         const quizStats = getQuizStats();
@@ -231,7 +223,6 @@ function renderDashboard(root, data, thesaurus) {
     }
   });
 
-  // Update star icon if already favorited
   if (isFavorite(data.word)) {
     const starIcon = root.querySelector("#starIcon");
     const saveBtn = root.querySelector("#saveBtn");
@@ -242,7 +233,6 @@ function renderDashboard(root, data, thesaurus) {
     }
   }
 
-  // Update Favorites (Recent) section
   const recentContainer = root.querySelector("#recentFavoritesContainer");
   if (recentContainer) {
     const favorites = getFavorites();
@@ -260,7 +250,6 @@ function renderDashboard(root, data, thesaurus) {
     }
   }
 
-  // Pronunciation audio (Step 2c – disable while playing)
   const playBtn = root.querySelector("#playAudio");
   if (playBtn && data.audioUrl) {
     const audio = new Audio(data.audioUrl);

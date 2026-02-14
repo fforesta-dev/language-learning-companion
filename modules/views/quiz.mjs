@@ -12,7 +12,7 @@ function escapeHtml(str) {
 let currentQuiz = null;
 let currentAnswers = [];
 let currentQuestionIndex = 0;
-let quizState = 'start'; // 'start', 'question', 'results'
+let quizState = 'start';
 
 function renderStart(viewRoot) {
   const favorites = getFavorites();
@@ -162,7 +162,6 @@ function renderQuestion(viewRoot) {
     });
   });
 
-  // Navigation
   viewRoot.querySelector("#prevBtn")?.addEventListener("click", () => {
     if (currentQuestionIndex > 0) {
       currentQuestionIndex--;
@@ -244,7 +243,6 @@ function renderResults(viewRoot, result) {
     renderStart(viewRoot);
   });
 
-  // Trigger confetti immediately for high scores
   if (result.percentage >= 80) {
     setTimeout(() => {
       triggerConfetti();
@@ -258,7 +256,6 @@ export async function renderQuiz(viewRoot) {
   } else if (quizState === 'question') {
     renderQuestion(viewRoot);
   } else if (quizState === 'results') {
-    // Return to start if results page
     quizState = 'start';
     renderStart(viewRoot);
   }

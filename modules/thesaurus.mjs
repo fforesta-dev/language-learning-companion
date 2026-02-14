@@ -1,4 +1,3 @@
-// Use backend proxy instead of direct API calls
 const BACKEND_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
     ? 'http://localhost:3000/api'
     : 'https://language-learning-companion-snowy.vercel.app/api';
@@ -7,11 +6,6 @@ function safeArray(v) {
     return Array.isArray(v) ? v : [];
 }
 
-/**
- * Get thesaurus data (synonyms and antonyms) for a word
- * @param {string} word - The word to look up
- * @returns {Promise<object>} Object containing synonyms and antonyms
- */
 export async function getThesaurusData(word) {
     const url = `${BACKEND_URL}/thesaurus?word=${encodeURIComponent(word.trim())}`;
     const res = await fetch(url);
@@ -28,7 +22,6 @@ export async function getThesaurusData(word) {
 export function normalizeThesaurusResult(apiJson) {
     const entry = safeArray(apiJson)[0] || {};
 
-    // Handle case where API returns suggestions instead of results
     if (typeof entry === 'string') {
         throw new Error(`Word not found. Did you mean: ${apiJson.slice(0, 5).join(', ')}?`);
     }
@@ -36,7 +29,6 @@ export function normalizeThesaurusResult(apiJson) {
     const word = entry.meta?.id?.split(':')[0] || entry.hwi?.hw?.replace(/\*/g, '') || "";
     const partOfSpeech = entry.fl || "";
 
-    // Extract synonyms and antonyms
     const synonyms = new Set();
     const antonyms = new Set();
 
@@ -56,7 +48,6 @@ export function normalizeThesaurusResult(apiJson) {
         }
     }
 
-    // Get short definition
     const definition = entry.shortdef?.[0] || "";
 
     return {

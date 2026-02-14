@@ -1,4 +1,3 @@
-// Simple confetti animation
 export function triggerConfetti() {
     const container = document.createElement('div');
     container.className = 'confetti-container';
@@ -16,7 +15,6 @@ export function triggerConfetti() {
         container.appendChild(confetti);
     }
 
-    // Remove container after animation completes
     setTimeout(() => {
         container.remove();
     }, 4000);

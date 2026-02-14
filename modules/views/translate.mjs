@@ -54,9 +54,6 @@ export async function renderTranslate(viewRoot) {
 
   if (!srcText || !btn || !out || !status || !fromSel || !toSel || !srcLabel) return;
 
-  // --- Step 3: keep Translate view in sync with global language state ---
-
-  // Try to copy the exact options from navbar selects (if they exist)
   const navFrom = document.querySelector("#fromLang");
   const navTo = document.querySelector("#toLang");
 
@@ -69,7 +66,6 @@ export async function renderTranslate(viewRoot) {
 
   const copied = cloneOptions(navFrom, navTo);
 
-  // Fallback options if navbar IDs don't exist
   if (!copied) {
     fromSel.innerHTML = `
       <option value="ar">Arabic (AR)</option>
@@ -116,7 +112,6 @@ export async function renderTranslate(viewRoot) {
     btn.textContent = `Translate to ${to.toUpperCase()}`;
   }
 
-  // When user changes languages INSIDE Translate page
   fromSel.addEventListener("change", () => {
     setLangs({ from: fromSel.value, to: toSel.value });
   });
@@ -125,10 +120,7 @@ export async function renderTranslate(viewRoot) {
     setLangs({ from: fromSel.value, to: toSel.value });
   });
 
-  // When languages change elsewhere (navbar, other pages)
   window.addEventListener("llc:langs", syncTranslateUi);
-
-  // Initial sync
   syncTranslateUi();
 
   srcText.addEventListener("keydown", (e) => {

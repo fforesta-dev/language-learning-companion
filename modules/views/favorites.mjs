@@ -64,7 +64,6 @@ export async function renderFavorites(viewRoot) {
     </section>
   `;
 
-  // Remove individual favorite
   viewRoot.querySelectorAll(".favorites-remove").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const word = btn.dataset.word;
@@ -74,14 +73,12 @@ export async function renderFavorites(viewRoot) {
     });
   });
 
-  // View details of favorite
   viewRoot.querySelectorAll(".favorite-view-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       navigate(`/daily?word=${encodeURIComponent(btn.dataset.word)}`);
     });
   });
 
-  // Clear all favorites
   const clearBtn = viewRoot.querySelector("#clearAllBtn");
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {

@@ -89,14 +89,12 @@ export async function renderProgress(viewRoot) {
     </section>
   `;
 
-  // Reset all progress button
   const resetBtn = viewRoot.querySelector("#resetProgressBtn");
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       if (confirm("Are you sure you want to reset ALL progress?\n\nThis will delete:\n• All saved favorite words\n• All quiz history and stats\n\nThis action cannot be undone.")) {
         clearFavorites();
         clearQuizHistory();
-        // Also clear daily cache
         localStorage.removeItem('llc-daily');
         renderProgress(viewRoot);
       }

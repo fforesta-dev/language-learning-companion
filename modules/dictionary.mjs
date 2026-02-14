@@ -7,7 +7,6 @@ function safeArray(v) {
     return Array.isArray(v) ? v : [];
 }
 
-// Clean Merriam-Webster markup codes
 function cleanText(text) {
     if (!text) return "";
     return String(text)
@@ -17,24 +16,19 @@ function cleanText(text) {
 }
 
 export function normalizeDictionaryResult(apiJson) {
-    // apiJson is an array from Merriam-Webster
     const entry = safeArray(apiJson)[0] || {};
 
-    // Handle case where API returns suggestions instead of definitions
     if (typeof entry === 'string') {
         throw new Error(`Word not found. Did you mean: ${apiJson.slice(0, 5).join(', ')}?`);
     }
 
     const word = entry.meta?.id?.split(':')[0] || entry.hwi?.hw?.replace(/\*/g, '') || "";
 
-    // Get phonetic pronunciation
     const phonetic = entry.hwi?.prs?.[0]?.mw || entry.hwi?.prs?.[0]?.ipa || "";
 
-    // Get audio file
     const audioData = entry.hwi?.prs?.[0]?.sound?.audio;
     let audioUrl = "";
     if (audioData) {
-        // Merriam-Webster audio URL construction
         const subdir = audioData.startsWith('bix') ? 'bix' :
             audioData.startsWith('gg') ? 'gg' :
                 audioData.match(/^[0-9]/) ? 'number' :
@@ -42,23 +36,13 @@ export function normalizeDictionaryResult(apiJson) {
         audioUrl = `https://media.merriam-webster.com/audio/prons/en/us/mp3/${subdir}/${audioData}.mp3`;
     }
 
-    // Get ALL definitions
     const allDefinitions = entry.shortdef || [];
     const partOfSpeech = entry.fl || "";
-
-    // Get etymology (word origin)
     const rawEtymology = entry.et?.[0]?.[1] || "";
-
-    // Get date first used
     const rawDate = entry.date || "";
-
-    // Get offensive/usage labels
     const labels = entry.lbs || [];
-
-    // Get variant spellings
     const variants = entry.vrs?.map(v => cleanText(v.va || v.vl)).filter(Boolean) || [];
 
-    // Get examples from definition text
     const examples = [];
     if (entry.def?.[0]?.sseq) {
         for (const sense of entry.def[0].sseq) {
@@ -78,7 +62,6 @@ export function normalizeDictionaryResult(apiJson) {
         }
     }
 
-    // Get usage notes and verbal illustrations
     const usageNotes = [];
     if (entry.def?.[0]?.sseq) {
         for (const sense of entry.def[0].sseq) {
@@ -109,7 +92,7 @@ export function normalizeDictionaryResult(apiJson) {
         dateFirstUsed: cleanText(rawDate),
         labels,
         variants,
-        examples: examples.slice(0, 8), // Show more examples
+        examples: examples.slice(0, 8),
         usageNotes,
         audioUrl,
         fetchedAt: new Date().toISOString(),

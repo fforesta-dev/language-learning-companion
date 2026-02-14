@@ -1,16 +1,5 @@
-/**
- * Quiz management module
- * Handles quiz generation, scoring, and history
- */
-
 const QUIZ_HISTORY_KEY = 'llc-quiz-history';
 
-/**
- * Generate a quiz from favorite words
- * @param {Array<Object>} favorites - Array of favorite word objects
- * @param {number} questionCount - Number of questions to generate
- * @returns {Array<Object>} Array of quiz questions with shuffled options
- */
 export function generateQuiz(favorites, questionCount = 5) {
     if (!favorites || favorites.length < 2) {
         throw new Error('Need at least 2 favorites to generate a quiz');
@@ -21,7 +10,6 @@ export function generateQuiz(favorites, questionCount = 5) {
     const selected = shuffled.slice(0, maxQuestions);
 
     return selected.map((correctWord) => {
-        // Get 3 incorrect answers from other favorites
         const incorrectAnswers = favorites
             .filter((fav) => fav.word !== correctWord.word)
             .sort(() => Math.random() - 0.5)
@@ -32,7 +20,7 @@ export function generateQuiz(favorites, questionCount = 5) {
                 correct: false,
             }));
 
-        // Combine correct + incorrect answers
+
         const allAnswers = [
             {
                 word: correctWord.word,
@@ -42,7 +30,6 @@ export function generateQuiz(favorites, questionCount = 5) {
             ...incorrectAnswers,
         ];
 
-        // Shuffle answers
         const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
 
         return {
@@ -56,12 +43,6 @@ export function generateQuiz(favorites, questionCount = 5) {
     });
 }
 
-/**
- * Score quiz answers
- * @param {Array<Object>} questions - Array of quiz questions
- * @param {Array<string>} userAnswers - Array of user's selected definitions (index-matched to questions)
- * @returns {Object} Score result with score, total, and details
- */
 export function scoreQuiz(questions, userAnswers) {
     let score = 0;
     const details = [];
@@ -90,10 +71,6 @@ export function scoreQuiz(questions, userAnswers) {
     };
 }
 
-/**
- * Get quiz history from localStorage
- * @returns {Array<Object>} Array of past quiz results
- */
 export function getQuizHistory() {
     try {
         const raw = localStorage.getItem(QUIZ_HISTORY_KEY);
@@ -103,11 +80,6 @@ export function getQuizHistory() {
     }
 }
 
-/**
- * Save quiz result to history
- * @param {Object} result - Quiz result object (score, total, percentage, etc.)
- * @returns {boolean} True if saved successfully
- */
 export function saveQuizResult(result) {
     try {
         const history = getQuizHistory();
@@ -122,10 +94,6 @@ export function saveQuizResult(result) {
     }
 }
 
-/**
- * Clear all quiz history
- * @returns {boolean} True if cleared successfully
- */
 export function clearQuizHistory() {
     try {
         localStorage.removeItem(QUIZ_HISTORY_KEY);
@@ -135,10 +103,6 @@ export function clearQuizHistory() {
     }
 }
 
-/**
- * Get quiz statistics
- * @returns {Object} Stats including total quizzes, average score, etc.
- */
 export function getQuizStats() {
     const history = getQuizHistory();
 

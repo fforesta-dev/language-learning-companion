@@ -1,10 +1,7 @@
-/**
- * Serverless function to proxy DeepL Translation API
- * Keeps API key secret on the server
- */
+// backend proxy for the translate API
 
 export default async function handler(req, res) {
-    // Enable CORS
+    // CORS headers
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -13,7 +10,6 @@ export default async function handler(req, res) {
         'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
     );
 
-    // Handle preflight requests
     if (req.method === 'OPTIONS') {
         res.status(200).end();
         return;
@@ -36,11 +32,10 @@ export default async function handler(req, res) {
 
     try {
         let body = {
-            text: [text], // DeepL expects an array of texts
+            text: [text],
             target_lang: target_lang.toUpperCase(),
         };
 
-        // Add source_lang if provided and not auto
         if (source_lang && source_lang !== 'auto') {
             body.source_lang = source_lang.toUpperCase();
         }
