@@ -6,7 +6,7 @@
     --accent: #f39c12;
     --accent-hover: #e67e22;
     --success: #27ae60;
-    --danger: #e74c3c;
+    --danger: #c0392b;
     --warning: #f39c12;
     --info: #2471a3;
     --bg: #f8fafc;
@@ -1270,7 +1270,7 @@ body {
 }
 
 .reset-btn:hover {
-    background: #c0392b;
+    background: #a93226;
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
