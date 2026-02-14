@@ -75,7 +75,7 @@ export async function renderFavorites(viewRoot) {
 
   viewRoot.querySelectorAll(".favorite-view-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-      navigate(`/daily?word=${encodeURIComponent(btn.dataset.word)}`);
+      navigate(`/search?word=${encodeURIComponent(btn.dataset.word)}`);
     });
   });
 
