@@ -2,7 +2,7 @@
 
 A comprehensive web application designed to help users expand their vocabulary and improve language skills through daily word discovery, translation tools, interactive quizzes, and personalized favorites tracking.
 
-**Live Demo:** [https://language-learning-companion-snowy.vercel.app](https://language-learning-companion-snowy.vercel.app)
+**Live Demo:** [https://francescoforesta.is-a.dev/language-learning-companion/](https://francescoforesta.is-a.dev/language-learning-companion/)
 
 ## 📋 Project Overview
 

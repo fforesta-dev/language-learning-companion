@@ -65,7 +65,7 @@ export async function renderFavorites(viewRoot) {
   `;
 
   viewRoot.querySelectorAll(".favorites-remove").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", () => {
       const word = btn.dataset.word;
       if (removeFavorite(word)) {
         renderFavorites(viewRoot);

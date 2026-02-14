@@ -1,13 +1,6 @@
 import { getFavorites, clearFavorites } from "../favorites.mjs";
 import { getQuizStats, getQuizHistory, clearQuizHistory } from "../quiz.mjs";
 
-function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, (ch) => {
-    const map = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
-    return map[ch] || ch;
-  });
-}
-
 export async function renderProgress(viewRoot) {
   const favorites = getFavorites();
   const quizStats = getQuizStats();

@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     if (typeof body === 'string') {
         try {
             body = JSON.parse(body);
-        } catch (e) {
+        } catch {
             return res.status(400).json({ error: 'Invalid JSON body' });
         }
     }
